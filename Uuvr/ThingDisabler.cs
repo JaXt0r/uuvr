@@ -55,7 +55,11 @@ public class ThingDisabler : UuvrBehaviour
             .Where(name => !string.IsNullOrEmpty(name))
             .SelectMany(name =>
             {
+#if CPP
+                var type = Il2CppSystem.Type.GetType(name);
+#else
                 var type = Type.GetType(name);
+#endif
                 return FindObjectsOfType(type);
             });
     }
