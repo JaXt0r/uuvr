@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         config: [legacy-mono, modern-mono, legacy-il2cpp]
-    uses: ./_build.yml
+    uses: ./.github/workflows/_build.yml
     with:
       config: ${{ matrix.config }}
 
