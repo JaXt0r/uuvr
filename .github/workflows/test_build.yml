@@ -1,69 +1,20 @@
-name: Build (legacy-mono, modern-mono, legacy-il2cpp)
+name: PR Test Build
 
 on:
   pull_request:
     types: [labeled]
 
+permissions:
+  contents: read
+
 jobs:
   build_pr:
-    name: PR Test Build (${{ matrix.config }})
+    name: Build Matrix
     if: github.event.label.name == 'test-build'
-    runs-on: windows-latest
     strategy:
       fail-fast: true
       matrix:
-        config: [legacy-mono, modern-mono, legacy-il2cpp] # [..., modern-il2cpp] once ready
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v2
-
-      - name: Show environment
-        run: |
-          echo "Runner OS: $env:RUNNER_OS"
-          echo "Workspace: $env:GITHUB_WORKSPACE"
-          dotnet --info
-
-      - name: Restore NuGet packages
-        run: dotnet restore UnityUniversalVr.sln /p:Configuration=${{ matrix.config }}
-
-      - name: Build (${{ matrix.config }})
-        shell: pwsh
-        run: |
-          $out = "$env:GITHUB_WORKSPACE\out"
-          if (Test-Path $out) {
-            Remove-Item -Recurse -Force $out
-          }
-          msbuild "UnityUniversalVr.sln" /m `
-            /p:Configuration=${{ matrix.config }} `
-            /p:BepInExDir="$out"
-
-      - name: Pack artifacts (${{ matrix.config }})
-        shell: pwsh
-        run: |
-          $out = "$env:GITHUB_WORKSPACE\out"
-          $artDir = "$env:GITHUB_WORKSPACE\artifacts"
-
-          if (!(Test-Path $artDir)) {
-            New-Item -ItemType Directory -Path $artDir | Out-Null
-          }
-          $zip = Join-Path $artDir ("uuvr-${{ matrix.config }}.zip")
-
-          if (Test-Path $zip) {
-            Remove-Item -Force $zip
-          }
-
-          if (Test-Path $out) {
-            Compress-Archive -Path (Join-Path $out '*') -DestinationPath $zip
-          } else {
-            Write-Error "Expected output folder '$out' not found. Build may have failed."
-          }
-
-      - name: Upload artifact (${{ matrix.config }})
-        uses: actions/upload-artifact@v4
-        with:
-          name: uuvr-${{ matrix.config }}
-          path: artifacts/uuvr-${{ matrix.config }}.zip
-          if-no-files-found: error
+        config: [legacy-mono, modern-mono, legacy-il2cpp]
+    uses: ./.github/workflows/_build.yml
+    with:
+      config: ${{ matrix.config }}

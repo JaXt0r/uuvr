@@ -1,0 +1,41 @@
+name: Build and Upload Release Assets
+
+on:
+  release:
+    types: [created, published]
+
+permissions:
+  contents: write
+
+jobs:
+  build_and_upload:
+    name: Build Matrix
+    strategy:
+      fail-fast: false
+      matrix:
+        config: [legacy-mono, modern-mono, legacy-il2cpp]
+    uses: ./_build.yml
+    with:
+      config: ${{ matrix.config }}
+
+  upload_to_release:
+    name: Upload to Release (${{ matrix.config }})
+    needs: build_and_upload
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        config: [legacy-mono, modern-mono, legacy-il2cpp]
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: uuvr-${{ matrix.config }}
+          path: artifacts
+
+      - name: Upload release asset (${{ matrix.config }})
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/uuvr-${{ matrix.config }}.zip
+          fail_on_unmatched_files: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
