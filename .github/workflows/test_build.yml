@@ -27,7 +27,7 @@ jobs:
           dotnet --info
 
       - name: Restore NuGet packages
-        run: dotnet restore UnityUniversalVr.sln
+        run: dotnet restore UnityUniversalVr.sln /p:Configuration=${{ matrix.config }}
 
       - name: Build (${{ matrix.config }})
         shell: pwsh
