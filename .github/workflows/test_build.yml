@@ -26,6 +26,9 @@ jobs:
           echo "Workspace: $env:GITHUB_WORKSPACE"
           dotnet --info
 
+      - name: Restore NuGet packages
+        run: dotnet restore UnityUniversalVr.sln
+
       - name: Build (${{ matrix.config }})
         shell: pwsh
         run: |
