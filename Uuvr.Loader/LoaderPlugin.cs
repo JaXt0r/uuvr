@@ -50,11 +50,13 @@ public partial class LoaderPlugin
     {
         try
         {
-#if MONO
-            Logger.LogInfo("Loading Mono implementation");
-#else
-            Logger.LogInfo("Loading Il2cpp implementation");
-#endif
+            Logger.LogInfo("Loading implementation");
+
+            if (IsUuvrAlreadyLoaded())
+            {
+                Logger.LogWarning("Uuvr already loaded. Some Unity versions load both Loader versions (legacy+modern). We skip the second one now.");
+                return;
+            }
             
             var pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
             var implDir = Path.Combine(Path.Combine(pluginDir, "Uuvr"), "implementation");
@@ -86,6 +88,22 @@ public partial class LoaderPlugin
         {
             Logger.LogError($"Failed to bootstrap UUVR: {e}");
         }
+    }
+
+    /// <summary>
+    /// Some Unity games / BepInEx versions support bootstrapping Mono loader compiled with .net35 and .net48. We skip the second one for now
+    /// and assume, that the other execution loaded properly. 
+    /// </summary>
+    /// <returns></returns>
+    private bool IsUuvrAlreadyLoaded()
+    {
+        foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+        {
+            if (assembly.GetName().Name.StartsWith("Uuvr.Mono") || assembly.GetName().Name.StartsWith("Uuvr.Il2cpp"))
+                return true;
+        }
+
+        return false;
     }
 
     private object? GetConfigFile()
