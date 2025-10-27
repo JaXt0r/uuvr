@@ -12,10 +12,10 @@ if (-not $MSBuildToolsPath) {
 
 # Build configurations
 $configurations = @(
-    "legacy-mono",
-    "modern-mono",
-    "legacy-il2cpp"
-#    "modern-il2cpp"
+    "mono-legacy",
+    "mono-modern",
+    "il2cpp-legacy"
+#    "il2cpp-modern"
 )
 
 Write-Host "Building all configurations..." -ForegroundColor Green

@@ -2,7 +2,7 @@
     <PropertyGroup>
         <TargetFramework>net35</TargetFramework>
         <Nullable>enable</Nullable>
-        <Configurations>legacy-il2cpp;modern-il2cpp;legacy-mono;modern-mono</Configurations>
+        <Configurations>il2cpp-legacy;il2cpp-modern;mono-legacy;mono-modern</Configurations>
         <Platforms>AnyCPU</Platforms>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>

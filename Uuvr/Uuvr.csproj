@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <Nullable>enable</Nullable>
-        <Configurations>legacy-il2cpp;modern-il2cpp;legacy-mono;modern-mono</Configurations>
+        <Configurations>il2cpp-legacy;il2cpp-modern;mono-legacy;mono-modern</Configurations>
         <Platforms>AnyCPU</Platforms>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
@@ -32,10 +32,10 @@
     </ItemGroup>
 
     <!--  Mono  -->
-    <PropertyGroup Condition=" '$(Configuration)' == 'legacy-mono' ">
+    <PropertyGroup Condition=" '$(Configuration)' == 'mono-legacy' ">
         <TargetFramework>net35</TargetFramework>
     </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)' == 'modern-mono' ">
+    <PropertyGroup Condition=" '$(Configuration)' == 'mono-modern' ">
         <TargetFramework>net48</TargetFramework>
     </PropertyGroup>
     <ItemGroup Condition=" '$(UnityBackend)' == 'mono' ">

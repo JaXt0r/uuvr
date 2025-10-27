@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configurations>legacy-il2cpp;modern-il2cpp;legacy-mono;modern-mono</Configurations>
+    <Configurations>il2cpp-legacy;il2cpp-modern;mono-legacy;mono-modern</Configurations>
     <Nullable>disable</Nullable>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <LangVersion>10</LangVersion>
@@ -15,7 +15,7 @@
   </PropertyGroup>
 
     <ItemGroup>
-        <!-- FIXME We currently use legacy DLLs only. Let's see if this works out with modern-mono and modern-il2cpp implementation dlls. -->
+        <!-- FIXME We currently use legacy DLLs only. Let's see if this works out with mono-modern and il2cpp-modern implementation dlls. -->
         <Reference Include="..\lib\$(UnityBackend)\$(UnityGeneration)\*.dll">
             <Private>False</Private>
         </Reference>
