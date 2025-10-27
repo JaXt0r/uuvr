@@ -19,8 +19,10 @@ That’s it. The loader in `Uuvr` will detect your game’s backend (Mono/IL2CPP
 ## What’s inside the Uuvr folder
 ```
 BepInEx\plugins\Uuvr\
-├─ Uuvr.Loader.Mono.dll          (used in Mono/BepInEx 5 games)
-├─ Uuvr.Loader.IL2CPP.dll        (used in IL2CPP/BepInEx 6 games)
+├─ Uuvr.Loader.Mono.Legacy.dll          (used in Mono/BepInEx 5 games, Unity 2019 or older)
+├─ Uuvr.Loader.Mono.Modern.dll          (used in Mono/BepInEx 5 games, Unity 2020 or newer)
+├─ Uuvr.Loader.Il2cpp.Legacy.dll        (used in IL2CPP/BepInEx 6 games, Unity 2019 or older)
+├─ Uuvr.Loader.Il2cpp.Modern.dll        (used in IL2CPP/BepInEx 6 games, Unity 2020 or newer)
 └─ implementation\
    ├─ Uuvr.Mono.Legacy.dll       (Unity 2019 or older, Mono)
    ├─ Uuvr.Mono.Modern.dll       (Unity 2020 or newer, Mono)

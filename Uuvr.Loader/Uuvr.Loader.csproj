@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configurations>loader-mono;loader-il2cpp</Configurations>
+    <Configurations>legacy-il2cpp;modern-il2cpp;legacy-mono;modern-mono</Configurations>
     <Nullable>disable</Nullable>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <LangVersion>10</LangVersion>
@@ -10,23 +10,32 @@
     <RootNamespace>Uuvr.Loader</RootNamespace>
     <Platforms>AnyCPU</Platforms>
     <OutputPath>$(BepInExDir)\plugins\Uuvr\</OutputPath>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <DebugType>none</DebugType>
   </PropertyGroup>
 
     <ItemGroup>
         <!-- FIXME We currently use legacy DLLs only. Let's see if this works out with modern-mono and modern-il2cpp implementation dlls. -->
-        <Reference Include="..\lib\$(UnityBackend)\legacy\*.dll">
+        <Reference Include="..\lib\$(UnityBackend)\$(UnityGeneration)\*.dll">
             <Private>False</Private>
         </Reference>
         <Content Include="Assets\**" >
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
-    
-  <!--  Mono  -->
-  <PropertyGroup Condition=" '$(UnityBackend)' == 'mono' ">
-      <AssemblyName>Uuvr.Loader.Mono</AssemblyName>
-      <TargetFramework>net48</TargetFramework>
+
+  <PropertyGroup>
+    <AssemblyName>Uuvr.Loader.$(UnityBackendFolderName).$(UnityGenerationFolderName)</AssemblyName>
   </PropertyGroup>
+
+  <!--  Mono  -->
+  <PropertyGroup Condition=" '$(UnityBackend)' == 'mono' And '$(UnityGeneration)' == 'legacy' ">
+    <TargetFramework>net35</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(UnityBackend)' == 'mono' And '$(UnityGeneration)' == 'modern' ">
+    <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+  
   <ItemGroup Condition=" '$(UnityBackend)' == 'mono' ">
     <PackageReference Include="BepInEx.Core" Version="5.4.16" />
   </ItemGroup>

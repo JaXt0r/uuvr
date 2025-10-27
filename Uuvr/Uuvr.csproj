@@ -10,7 +10,8 @@
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
         <DebugType>none</DebugType>
-        <OutputPath>$(BepInExDir)\mods\$(UnityBackendFolderName)\uuvr-$(UnityBackend)-$(UnityGeneration)\plugins</OutputPath>
+        <OutputPath>$(BepInExDir)\plugins\Uuvr\implementation</OutputPath>
+        <AssemblyName>Uuvr.$(UnityBackendFolderName).$(UnityGenerationFolderName)</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>

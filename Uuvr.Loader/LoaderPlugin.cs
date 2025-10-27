@@ -11,7 +11,13 @@ using BepInEx.Unity.IL2CPP;
 namespace Uuvr.Loader;
 
 #if CPP
-[BepInPlugin("raicuparta.uuvr.loader-il2cpp", "UUVR Loader (IL2CPP)", "0.4.0")]
+[BepInPlugin(
+#if LEGACY
+    "raicuparta.uuvr.loader-il2cpp-legacy", "UUVR.Loader.I.L",
+#else
+    "raicuparta.uuvr.loader-il2cpp-modern", "UUVR.Loader.I.M",
+#endif
+    "0.4.0")]
 public partial class LoaderPlugin : BasePlugin
 {
     private ManualLogSource Logger => Log;
@@ -22,7 +28,13 @@ public partial class LoaderPlugin : BasePlugin
     }
 }
 #elif MONO
-[BepInPlugin("raicuparta.uuvr.loader-mono", "UUVR Loader (Mono)", "0.4.0")]
+[BepInPlugin(
+#if LEGACY
+    "raicuparta.uuvr.loader-mono-legacy", "UUVR.Loader.M.L",
+#else
+    "raicuparta.uuvr.loader-mono-modern", "UUVR.Loader.M.M",
+#endif
+    "0.4.0")]
 public partial class LoaderPlugin : BaseUnityPlugin
 {
     private void Awake()
@@ -39,9 +51,9 @@ public partial class LoaderPlugin
         try
         {
 #if MONO
-            Logger.LogDebug("[UUVR.Loader] Loading mono implementation");
+            Logger.LogInfo("Loading Mono implementation");
 #else
-            Logger.LogDebug("[UUVR.Loader] Loading il2cpp implementation");
+            Logger.LogInfo("Loading Il2cpp implementation");
 #endif
             
             var pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
@@ -58,6 +70,8 @@ public partial class LoaderPlugin
             if (implPath == null)
                 throw new FileNotFoundException($"UUVR implementation not found: {fileName} in {implDir}");
 
+            Logger.LogInfo($"Loading implementation: {implPath}");
+
             var asm = Assembly.LoadFile(implPath);
             var bootstrapType = asm.GetType("Uuvr.UuvrBootstrap", throwOnError: true)!;
             var startMethod = bootstrapType.GetMethod("Start", BindingFlags.Public | BindingFlags.Static);
@@ -70,7 +84,7 @@ public partial class LoaderPlugin
         }
         catch (Exception e)
         {
-            Logger?.LogError($"Failed to bootstrap UUVR: {e}");
+            Logger.LogError($"Failed to bootstrap UUVR: {e}");
         }
     }
 

@@ -25,8 +25,6 @@ Global
 		legacy-il2cpp|Any CPU = legacy-il2cpp|Any CPU
 		legacy-mono|Any CPU = legacy-mono|Any CPU
 		modern-mono|Any CPU = modern-mono|Any CPU
-		loader-mono|Any CPU = loader-mono|Any CPU
-		loader-il2cpp|Any CPU = loader-il2cpp|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D28B08FD-9318-42A7-A475-29001E60189D}.modern-il2cpp|Any CPU.ActiveCfg = modern-il2cpp|Any CPU
@@ -68,10 +66,10 @@ Global
 		{DBC32AA0-BC31-4826-8B43-C57A2D1EA140}.legacy-mono|Any CPU.ActiveCfg = legacy-mono|Any CPU
 		{DBC32AA0-BC31-4826-8B43-C57A2D1EA140}.modern-il2cpp|Any CPU.ActiveCfg = modern-il2cpp|Any CPU
 		{DBC32AA0-BC31-4826-8B43-C57A2D1EA140}.modern-mono|Any CPU.ActiveCfg = modern-mono|Any CPU
-		{E2C4A4C9-2B7A-4A4D-9C2A-7C4B7F1E3A10}.loader-mono|Any CPU.ActiveCfg = loader-mono|Any CPU
-		{E2C4A4C9-2B7A-4A4D-9C2A-7C4B7F1E3A10}.loader-mono|Any CPU.Build.0 = loader-mono|Any CPU
-		{E2C4A4C9-2B7A-4A4D-9C2A-7C4B7F1E3A10}.loader-il2cpp|Any CPU.ActiveCfg = loader-il2cpp|Any CPU
-		{E2C4A4C9-2B7A-4A4D-9C2A-7C4B7F1E3A10}.loader-il2cpp|Any CPU.Build.0 = loader-il2cpp|Any CPU
+		{E2C4A4C9-2B7A-4A4D-9C2A-7C4B7F1E3A10}.legacy-mono|Any CPU.ActiveCfg = legacy-mono|Any CPU
+		{E2C4A4C9-2B7A-4A4D-9C2A-7C4B7F1E3A10}.legacy-mono|Any CPU.Build.0 = legacy-mono|Any CPU
+		{E2C4A4C9-2B7A-4A4D-9C2A-7C4B7F1E3A10}.modern-mono|Any CPU.ActiveCfg = modern-mono|Any CPU
+		{E2C4A4C9-2B7A-4A4D-9C2A-7C4B7F1E3A10}.modern-mono|Any CPU.Build.0 = modern-mono|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

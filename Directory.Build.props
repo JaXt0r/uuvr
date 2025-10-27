@@ -27,12 +27,14 @@
   <!--  Legacy (Unity 2019 or earlier)  -->
   <PropertyGroup Condition=" '$(Configuration)' == 'legacy-mono' Or '$(Configuration)' == 'legacy-il2cpp' ">
     <UnityGeneration>legacy</UnityGeneration>
+    <UnityGenerationFolderName>Legacy</UnityGenerationFolderName>
     <DefineConstants>$(DefineConstants);LEGACY</DefineConstants>
   </PropertyGroup>
 
   <!--  Modern (Unity 2020 or later)  -->
   <PropertyGroup Condition=" '$(Configuration)' == 'modern-mono' Or '$(Configuration)' == 'modern-il2cpp' ">
     <UnityGeneration>modern</UnityGeneration>
+    <UnityGenerationFolderName>Modern</UnityGenerationFolderName>
     <DefineConstants>$(DefineConstants);MODERN</DefineConstants>
   </PropertyGroup>
 </Project>

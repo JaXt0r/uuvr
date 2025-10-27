@@ -2,6 +2,6 @@
 root = true
 
 # 4 space indentation
-[{*.xml,*.csproj,*.sln}]
+[{*.xml,*.csproj,*.sln,*.props}]
 indent_style = space
 indent_size = 2
