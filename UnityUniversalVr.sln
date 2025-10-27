@@ -17,12 +17,16 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Uuvr.XInput", "Uuvr.XInput\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uuvr.SteamVR", "Uuvr.SteamVR\Uuvr.SteamVR.csproj", "{DBC32AA0-BC31-4826-8B43-C57A2D1EA140}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uuvr.Loader", "Uuvr.Loader\Uuvr.Loader.csproj", "{E2C4A4C9-2B7A-4A4D-9C2A-7C4B7F1E3A10}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		modern-il2cpp|Any CPU = modern-il2cpp|Any CPU
 		legacy-il2cpp|Any CPU = legacy-il2cpp|Any CPU
 		legacy-mono|Any CPU = legacy-mono|Any CPU
 		modern-mono|Any CPU = modern-mono|Any CPU
+		loader-mono|Any CPU = loader-mono|Any CPU
+		loader-il2cpp|Any CPU = loader-il2cpp|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D28B08FD-9318-42A7-A475-29001E60189D}.modern-il2cpp|Any CPU.ActiveCfg = modern-il2cpp|Any CPU
@@ -64,6 +68,10 @@ Global
 		{DBC32AA0-BC31-4826-8B43-C57A2D1EA140}.legacy-mono|Any CPU.ActiveCfg = legacy-mono|Any CPU
 		{DBC32AA0-BC31-4826-8B43-C57A2D1EA140}.modern-il2cpp|Any CPU.ActiveCfg = modern-il2cpp|Any CPU
 		{DBC32AA0-BC31-4826-8B43-C57A2D1EA140}.modern-mono|Any CPU.ActiveCfg = modern-mono|Any CPU
+		{E2C4A4C9-2B7A-4A4D-9C2A-7C4B7F1E3A10}.loader-mono|Any CPU.ActiveCfg = loader-mono|Any CPU
+		{E2C4A4C9-2B7A-4A4D-9C2A-7C4B7F1E3A10}.loader-mono|Any CPU.Build.0 = loader-mono|Any CPU
+		{E2C4A4C9-2B7A-4A4D-9C2A-7C4B7F1E3A10}.loader-il2cpp|Any CPU.ActiveCfg = loader-il2cpp|Any CPU
+		{E2C4A4C9-2B7A-4A4D-9C2A-7C4B7F1E3A10}.loader-il2cpp|Any CPU.Build.0 = loader-il2cpp|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

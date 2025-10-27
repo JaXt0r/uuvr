@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Configurations>loader-mono;loader-il2cpp</Configurations>
+    <Nullable>disable</Nullable>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <LangVersion>10</LangVersion>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RootNamespace>Uuvr.Loader</RootNamespace>
+    <Platforms>AnyCPU</Platforms>
+    <OutputPath>$(BepInExDir)\plugins\Uuvr\</OutputPath>
+  </PropertyGroup>
+
+    <ItemGroup>
+        <!-- FIXME We currently use legacy DLLs only. Let's see if this works out with modern-mono and modern-il2cpp implementation dlls. -->
+        <Reference Include="..\lib\$(UnityBackend)\legacy\*.dll">
+            <Private>False</Private>
+        </Reference>
+        <Content Include="Assets\**" >
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+    
+  <!--  Mono  -->
+  <PropertyGroup Condition=" '$(UnityBackend)' == 'mono' ">
+      <AssemblyName>Uuvr.Loader.Mono</AssemblyName>
+      <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(UnityBackend)' == 'mono' ">
+    <PackageReference Include="BepInEx.Core" Version="5.4.16" />
+  </ItemGroup>
+
+    <!--  Il2Cpp  -->
+    <PropertyGroup Condition=" '$(UnityBackend)' == 'il2cpp' ">
+        <AssemblyName>Uuvr.Loader.IL2CPP</AssemblyName>
+        <TargetFramework>net6.0</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup Condition=" '$(UnityBackend)' == 'il2cpp' ">
+        <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.692" />
+    </ItemGroup>
+
+  <!-- Copy end-user README into plugin output folder -->
+  <ItemGroup>
+    <Content Include="README.md" Condition="Exists('README.md')">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  
+</Project>

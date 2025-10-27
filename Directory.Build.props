@@ -11,14 +11,14 @@
   </PropertyGroup>
 
   <!--  Il2Cpp  -->
-  <PropertyGroup Condition=" '$(Configuration)' == 'legacy-il2cpp' Or '$(Configuration)' == 'modern-il2cpp' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'legacy-il2cpp' Or '$(Configuration)' == 'modern-il2cpp' Or '$(Configuration)' == 'loader-il2cpp' ">
     <UnityBackend>il2cpp</UnityBackend>
     <UnityBackendFolderName>Il2Cpp</UnityBackendFolderName>
     <DefineConstants>$(DefineConstants);CPP</DefineConstants>
   </PropertyGroup>
 
   <!--  Mono  -->
-  <PropertyGroup Condition=" '$(Configuration)' == 'legacy-mono' Or '$(Configuration)' == 'modern-mono' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'legacy-mono' Or '$(Configuration)' == 'modern-mono' Or '$(Configuration)' == 'loader-mono' ">
     <UnityBackend>mono</UnityBackend>
     <UnityBackendFolderName>Mono</UnityBackendFolderName>
     <DefineConstants>$(DefineConstants);MONO</DefineConstants>
