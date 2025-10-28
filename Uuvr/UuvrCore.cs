@@ -32,6 +32,7 @@ public class UuvrCore: MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         gameObject.AddComponent<VrCameraManager>();
+        gameObject.AddComponent<Debugger>();
         
         // TODO: Emulate input.   
         // UuvrBehaviour.Create<UuvrInput>(transform);

@@ -15,6 +15,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Reference Include="..\lib\default\*.dll">
+        <Private>False</Private>
+      </Reference>
+    </ItemGroup>
+    
+    <ItemGroup>
         <Reference Include="..\lib\$(UnityBackend)\$(UnityGeneration)\*.dll">
             <Private>False</Private>
         </Reference>

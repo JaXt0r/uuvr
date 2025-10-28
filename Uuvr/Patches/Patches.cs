@@ -24,7 +24,7 @@ public static class Patches
     {
         static void Postfix(KeyCode key, ref bool __result)
         {
-            Debug.LogWarning("Fetched key polling: " + key);
+            // Debug.LogWarning("Fetched key polling: " + key);
         }
     }
 #endif
