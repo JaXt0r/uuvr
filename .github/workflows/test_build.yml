@@ -1,0 +1,20 @@
+name: PR Test Build
+
+on:
+  pull_request:
+    types: [labeled]
+
+permissions:
+  contents: read
+
+jobs:
+  build_pr:
+    name: Build Matrix
+    if: github.event.label.name == 'test-build'
+    strategy:
+      fail-fast: true
+      matrix:
+        config: [legacy-mono, modern-mono, legacy-il2cpp]
+    uses: ./.github/workflows/_build.yml
+    with:
+      config: ${{ matrix.config }}
