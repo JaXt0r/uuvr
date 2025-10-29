@@ -16,6 +16,26 @@ public static class TypeExtensions
                type.BaseType?.BaseType?.GetMember(name, Flags).FirstOrDefault();
     }
 
+#if LEGACY && MONO
+    /// <summary>
+    /// Act as .NET 9.0 method which doesn't exist in .NET 2.0
+    /// </summary>
+    /// <see url="https://learn.microsoft.com/en-us/dotnet/api/system.reflection.propertyinfo.getvalue?view=net-9.0#system-reflection-propertyinfo-getvalue(system-object)" />
+    public static object? GetValue(this PropertyInfo property, object? obj)
+    {
+        return property.GetValue(obj, null);
+    }
+    
+    /// <summary>
+    /// Act as .NET 9.0 method which doesn't exist in .NET 2.0
+    /// </summary>
+    /// <see url="https://learn.microsoft.com/en-us/dotnet/api/system.reflection.propertyinfo.setvalue?view=net-9.0#system-reflection-propertyinfo-setvalue(system-object-system-object)" />
+    public static void SetValue(this PropertyInfo property, object? obj, object? value)
+    {
+        property.SetValue(obj, value, null);
+    }
+#endif
+    
     public static T? GetValue<T>(this object obj, string name)
     {
         return obj.GetType().GetAnyMember(name) switch

@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current"
   xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Import local overrides if they exist (should be git-ignored) -->
+  <Import Project="Directory.Build.props.user" Condition="Exists('Directory.Build.props.user')" />
+
   <PropertyGroup>
-    <BepInExDir>C:\Users\rai\AppData\Roaming\raicuparta\rai-pal\data\mod-loaders\bepinex</BepInExDir>
+    <!-- Default/fallback value if not overridden -->
+    <BepInExDir Condition="'$(BepInExDir)' == ''">C:\Users\rai\AppData\Roaming\raicuparta\rai-pal\data\mod-loaders\bepinex</BepInExDir>
   </PropertyGroup>
 
   <!--  Il2Cpp  -->
