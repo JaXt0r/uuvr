@@ -16,4 +16,17 @@ public static class Patches
     {
         return false;
     }
+
+#if MONO && LEGACY
+    // Buttons
+    [HarmonyPatch(typeof(Input), nameof(Input.GetKey), new[] { typeof(KeyCode) })]
+    private static class GetKey_Patch
+    {
+        static void Postfix(KeyCode key, ref bool __result)
+        {
+            Debug.LogWarning("Fetched key polling: " + key);
+        }
+    }
+#endif
+    
 }
