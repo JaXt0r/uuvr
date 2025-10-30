@@ -66,6 +66,7 @@ Global
 		{DBC32AA0-BC31-4826-8B43-C57A2D1EA140}.mono-legacy|Any CPU.ActiveCfg = mono-legacy|Any CPU
 		{DBC32AA0-BC31-4826-8B43-C57A2D1EA140}.il2cpp-modern|Any CPU.ActiveCfg = il2cpp-modern|Any CPU
 		{DBC32AA0-BC31-4826-8B43-C57A2D1EA140}.mono-modern|Any CPU.ActiveCfg = mono-modern|Any CPU
+		{DBC32AA0-BC31-4826-8B43-C57A2D1EA140}.mono-legacy|Any CPU.Build.0 = mono-legacy|Any CPU
 		{E2C4A4C9-2B7A-4A4D-9C2A-7C4B7F1E3A10}.mono-legacy|Any CPU.ActiveCfg = mono-legacy|Any CPU
 		{E2C4A4C9-2B7A-4A4D-9C2A-7C4B7F1E3A10}.mono-legacy|Any CPU.Build.0 = mono-legacy|Any CPU
 		{E2C4A4C9-2B7A-4A4D-9C2A-7C4B7F1E3A10}.mono-modern|Any CPU.ActiveCfg = mono-modern|Any CPU

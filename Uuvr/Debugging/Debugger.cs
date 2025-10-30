@@ -5,6 +5,7 @@ using HarmonyLib;
 using Rewired;
 using Rewired.Data;
 using UnityEngine;
+using Valve.VR;
 
 namespace Uuvr.Debugging;
 
@@ -19,16 +20,46 @@ public class Debugger : UuvrBehaviour
         }
         Debug.Log("====================");
 
-        Debug.Log("===Rewired Actions===");
         StartCoroutine(LogRewiredActions());
+
+        StartCoroutine(RegisterSteamVRController());
+    }
+
+    private IEnumerator RegisterSteamVRController()
+    {
+        yield return new WaitForSeconds(1f);
+
+        Debug.Log("===SteamVR register controller===");
+
+        SteamVR_Actions.PreInitialize();
+        SteamVR.Initialize();
+        // SteamVR_Settings.instance.pauseGameWhenDashboardVisible = true;
+
+        // var vrActions = SteamVR_Actions.Xbox;
+
+        // vrActions.A.AddOnChangeListener(FunctionToCall, SteamVR_Input_Sources.Any);
+        SteamVR_Actions.xbox_A.AddOnChangeListener(FunctionToCall, SteamVR_Input_Sources.Any);
+
+        Debug.Log("VR Listener registered");
         Debug.Log("====================");
+
+        void FunctionToCall(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)
+        {
+            Debug.Log("A changed " + newState);
+        }
+    }
+
+    private void Update()
+    {
+
     }
 
 
     // For printing the flatscreen game binds
     private IEnumerator LogRewiredActions()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1f);
+        Debug.Log("===Rewired Actions===");
         Debug.Log("Rewired version: " + ReInput.programVersion);
 
         foreach (var player in ReInput.players.AllPlayers)
@@ -89,6 +120,7 @@ public class Debugger : UuvrBehaviour
             method?.Invoke(ReInput.UserData, new object[] { 0, 0, 0 });
 
             Debug.Log("LogAllGameActions ended");
+            Debug.Log("====================");
         }
     }
 }

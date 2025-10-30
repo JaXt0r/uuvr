@@ -153,6 +153,9 @@ public class VrCamera : UuvrBehaviour
 
     private void UpdateRelativeMatrix()
     {
+        // FIXME - Throws continuously errors in Unity 5.4. Skipping for now.
+        return;
+
         if (ModConfiguration.Instance.CameraTracking.Value != ModConfiguration.CameraTrackingMode.RelativeMatrix) return;
         
         var eye = ParentCamera.stereoActiveEye == Camera.MonoOrStereoscopicEye.Left ? Camera.StereoscopicEye.Left : Camera.StereoscopicEye.Right;
