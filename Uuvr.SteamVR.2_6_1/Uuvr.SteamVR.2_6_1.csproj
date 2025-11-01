@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <Configurations>il2cpp-legacy;il2cpp-modern;mono-legacy;mono-modern</Configurations>
+    <Platforms>AnyCPU</Platforms>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <LangVersion>10</LangVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
+    <DebugType>none</DebugType>
+<!--    <OutputPath>$(BepInExDir)\mods\$(UnityBackendFolderName)\uuvr-$(UnityBackend)-$(UnityGeneration)\plugins</OutputPath>-->
+    <RootNamespace>UUVR.SteamVR.2_6_1</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="..\lib\$(UnityBackend)\$(UnityGeneration)\*.dll">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="..\lib\Valve.Newtonsoft.Json.dll">
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!--  Modern  -->
+  <!--  <ItemGroup Condition=" '$(UnityGeneration)' == 'modern' ">-->
+  <!--    <ProjectReference Include="..\Uuvr.XR.OpenVR\Uuvr.XR.OpenVR.csproj" />-->
+  <!--    <ProjectReference Include="..\Uuvr.XR.OpenXR\Uuvr.XR.OpenXR.csproj" />-->
+  <!--  </ItemGroup>-->
+
+</Project>
