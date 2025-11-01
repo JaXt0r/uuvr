@@ -16,7 +16,7 @@ public static class TypeExtensions
                type.BaseType?.BaseType?.GetMember(name, Flags).FirstOrDefault();
     }
 
-#if LEGACY && MONO
+#if UNITY_500_AND_NEWER
     /// <summary>
     /// Act as .NET 9.0 method which doesn't exist in .NET 2.0
     /// </summary>

@@ -1,50 +1,41 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <Nullable>enable</Nullable>
-        <Configurations>il2cpp-legacy;il2cpp-modern;mono-legacy;mono-modern</Configurations>
-        <Platforms>AnyCPU</Platforms>
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
-        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-        <LangVersion>10</LangVersion>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-        <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
-        <DebugType>none</DebugType>
-        <OutputPath>$(BepInExDir)\plugins\Uuvr\implementation</OutputPath>
-        <AssemblyName>Uuvr.$(UnityBackendFolderName).$(UnityGenerationFolderName)</AssemblyName>
-    </PropertyGroup>
+  <PropertyGroup>
+      <Nullable>enable</Nullable>
+      <Configurations>Mono-5</Configurations>
+      <Platforms>AnyCPU</Platforms>
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+      <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+      <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+      <LangVersion>10</LangVersion>
+      <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+      <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
+      <DebugType>none</DebugType>
+      <OutputPath>$(BepInExDir)\plugins\Uuvr\implementation</OutputPath>
+      <AssemblyName>Uuvr.$(UnityBackend).$(UnityGeneration)</AssemblyName>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <Reference Include="..\lib\$(UnityBackend)\$(UnityGeneration)\*.dll">
-            <Private>False</Private>
-        </Reference>
-        <Content Include="Assets\**" >
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-    </ItemGroup>
+  <ItemGroup>
+    <Reference Include="..\lib\$(UnityBackend)\$(UnityGeneration)\*.dll">
+      <Private>False</Private>
+    </Reference>
+    <Content Include="Assets\**" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
-    <!--  Il2Cpp  -->
-    <PropertyGroup Condition=" '$(UnityBackend)' == 'il2cpp' ">
-        <TargetFramework>net6.0</TargetFramework>
-    </PropertyGroup>
-    <ItemGroup Condition=" '$(UnityBackend)' == 'il2cpp' ">
-        <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.692" />
-    </ItemGroup>
+  <!--  Mono  -->
+  <ItemGroup Condition=" '$(UnityBackend)' == 'mono' ">
+    <PackageReference Include="BepInEx.Core" Version="5.4.16" />
+  </ItemGroup>
 
-    <!--  Mono  -->
-    <PropertyGroup Condition=" '$(Configuration)' == 'mono-legacy' ">
-        <TargetFramework>net35</TargetFramework>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)' == 'mono-modern' ">
-        <TargetFramework>net48</TargetFramework>
-    </PropertyGroup>
-    <ItemGroup Condition=" '$(UnityBackend)' == 'mono' ">
-        <PackageReference Include="BepInEx.Core" Version="5.4.16" />
-    </ItemGroup>
+  <!--  Il2Cpp  -->
+  <ItemGroup Condition=" '$(UnityBackend)' == 'IL2CPP' ">
+    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.692" />
+  </ItemGroup>
 
-    <!--  Modern  -->
-    <ItemGroup Condition=" '$(UnityGeneration)' == 'modern' ">
-        <ProjectReference Include="..\Uuvr.XR.OpenVR\Uuvr.XR.OpenVR.csproj" />
-        <ProjectReference Include="..\Uuvr.XR.OpenXR\Uuvr.XR.OpenXR.csproj" />
-    </ItemGroup>
+  <!--  Modern  -->
+<!--  <ItemGroup Condition=" '$(UnityGeneration)' == 'modern' ">-->
+<!--    <ProjectReference Include="..\Uuvr.XR.OpenVR\Uuvr.XR.OpenVR.csproj" />-->
+<!--    <ProjectReference Include="..\Uuvr.XR.OpenXR\Uuvr.XR.OpenXR.csproj" />-->
+<!--  </ItemGroup>-->
 </Project>

@@ -1,14 +1,5 @@
 # Lib
 
-# User-specific files
-*.user
-
-# User-specific files (MonoDevelop/Xamarin Studio)
-*.userprefs
-
-# Mono auto generated files
-mono_crash.*
-
 # Build results
 [Bb]in/
 [Oo]bj/
@@ -16,3 +7,10 @@ mono_crash.*
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+# User-specific files
+*.user
+
+# Unity DLLs (used at compile time)
+# e.g., lib/mono/500
+/lib/*/*/*.dll

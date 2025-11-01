@@ -71,14 +71,17 @@ public class CanvasRedirectPatchMode : UuvrBehaviour, VrUiPatchMode
         var keys =
 #if CPP
             GraphicRegistry.instance.m_Graphics.keys;
-#else
+#elif UNITY_2017_AND_NEWER
             GraphicRegistry.instance.m_Graphics.Keys;
 #endif
-        
+
+// Unity 5 has hidden key values. Ignoring.
+#if UNITY_2017_AND_NEWER
         foreach (var canvas in keys)
         {
             PatchCanvas(canvas);
         }
+#endif
 
         // Cursed way of making the UI capture camera not capture the projected UI itself without having to use more layers.
         // I don't know why it keeps getting reset so I'm just doing it every frame yahoo.

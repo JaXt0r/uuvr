@@ -58,11 +58,14 @@ public class ScreenMirrorPatchMode : UuvrBehaviour, VrUiPatchMode
         _clearCamera.clearFlags = CameraClearFlags.SolidColor;
         _clearCamera.backgroundColor = Color.clear;
         
+// FIXME - Untested
+#if UNITY_2017_AND_NEWER
         // HDR seems to prevent a proper transparent clear (would some times become opaque with this enabled).
         _clearCamera.allowHDR = false;
         // This I'm not sure if it helps but since the HDR thing was a problem, might as well.
         _clearCamera.allowMSAA = false;
-
+#endif
+        
 #if MODERN
         var additionalData = AdditionalCameraData.Create(_clearCamera);
         if (additionalData != null)

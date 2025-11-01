@@ -97,8 +97,9 @@ public class ModConfiguration
         CameraTracking = config.Bind(
             "Camera",
             "Camera Tracking Mode",
-#if LEGACY
+#if UNITY_500_AND_NEWER
             CameraTrackingMode.RelativeMatrix,
+// FIXME - else will be changed with sth. like the time, .net48 got used (2018)
 #else
             CameraTrackingMode.RelativeTransform,
 #endif

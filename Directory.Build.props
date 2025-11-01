@@ -10,31 +10,88 @@
     <BepInExDir Condition="'$(BepInExDir)' == ''">C:\Users\rai\AppData\Roaming\raicuparta\rai-pal\data\mod-loaders\bepinex</BepInExDir>
   </PropertyGroup>
 
-  <!--  Il2Cpp  -->
-  <PropertyGroup Condition=" '$(Configuration)' == 'il2cpp-legacy' Or '$(Configuration)' == 'il2cpp-modern' Or '$(Configuration)' == 'loader-il2cpp' ">
-    <UnityBackend>il2cpp</UnityBackend>
-    <UnityBackendFolderName>Il2Cpp</UnityBackendFolderName>
-    <DefineConstants>$(DefineConstants);CPP</DefineConstants>
+  
+  <!-- Unity 5 -->
+  <PropertyGroup Condition=" '$(Configuration)' == 'mono-5' ">
+    <UnityBackend>Mono</UnityBackend>
+    <UnityGeneration>500</UnityGeneration>
+    <TargetFramework>net35</TargetFramework>
+    <DefineConstants>$(DefineConstants);UNITY_500_AND_NEWER</DefineConstants>
+  </PropertyGroup>
+  
+  <!-- Unity 2017 -->
+  <PropertyGroup Condition=" '$(Configuration)' == 'mono-2017' ">
+    <UnityBackend>Mono</UnityBackend>
+    <TargetFramework>net35</TargetFramework>
+    <DefineConstants>$(DefineConstants);UNITY_500_AND_NEWER;UNITY_2017_AND_NEWER</DefineConstants>
   </PropertyGroup>
 
-  <!--  Mono  -->
-  <PropertyGroup Condition=" '$(Configuration)' == 'mono-legacy' Or '$(Configuration)' == 'mono-modern' Or '$(Configuration)' == 'loader-mono' ">
-    <UnityBackend>mono</UnityBackend>
-    <UnityBackendFolderName>Mono</UnityBackendFolderName>
-    <DefineConstants>$(DefineConstants);MONO</DefineConstants>
-  </PropertyGroup>
+<!--  &lt;!&ndash; Unity 2018 &ndash;&gt;-->
+<!--  <PropertyGroup Condition=" '$(Configuration)' == 'mono-2018' ">-->
+<!--    <UnityBackend>Mono</UnityBackend>-->
+<!--    <TargetFramework>netstandard2.0</TargetFramework>-->
+<!--    <DefineConstants>$(DefineConstants);UNITY_500_AND_NEWER;UNITY_2017_AND_NEWER;UNITY_2018_AND_NEWER</DefineConstants>-->
+<!--  </PropertyGroup>-->
 
-  <!--  Legacy (Unity 2019 or earlier)  -->
-  <PropertyGroup Condition=" '$(Configuration)' == 'mono-legacy' Or '$(Configuration)' == 'il2cpp-legacy' ">
-    <UnityGeneration>legacy</UnityGeneration>
-    <UnityGenerationFolderName>Legacy</UnityGenerationFolderName>
-    <DefineConstants>$(DefineConstants);LEGACY</DefineConstants>
-  </PropertyGroup>
+<!--  &lt;!&ndash; Unity 2019 &ndash;&gt;-->
+<!--  <PropertyGroup Condition=" '$(Configuration)' == 'mono-2019' ">-->
+<!--    <UnityBackend>Mono</UnityBackend>-->
+<!--    <TargetFramework>netstandard2.0</TargetFramework>-->
+<!--    <DefineConstants>$(DefineConstants);UNITY_500_AND_NEWER;UNITY_2017_AND_NEWER;UNITY_2018_AND_NEWER;UNITY_2019_AND_NEWER</DefineConstants>-->
+<!--  </PropertyGroup>-->
 
-  <!--  Modern (Unity 2020 or later)  -->
-  <PropertyGroup Condition=" '$(Configuration)' == 'mono-modern' Or '$(Configuration)' == 'il2cpp-modern' ">
-    <UnityGeneration>modern</UnityGeneration>
-    <UnityGenerationFolderName>Modern</UnityGenerationFolderName>
-    <DefineConstants>$(DefineConstants);MODERN</DefineConstants>
-  </PropertyGroup>
+<!--  &lt;!&ndash; Unity 2020 &ndash;&gt;-->
+<!--  <PropertyGroup Condition=" '$(Configuration)' == 'mono-2020' ">-->
+<!--    <UnityBackend>Mono</UnityBackend>-->
+<!--    <TargetFramework>netstandard2.0</TargetFramework>-->
+<!--    <DefineConstants>$(DefineConstants);UNITY_500_AND_NEWER;UNITY_2017_AND_NEWER;UNITY_2018_AND_NEWER;UNITY_2019_AND_NEWER;UNITY_2020_AND_NEWER</DefineConstants>-->
+<!--  </PropertyGroup>-->
+
+<!--  &lt;!&ndash; Unity 2021 &ndash;&gt;-->
+<!--  <PropertyGroup Condition=" '$(Configuration)' == 'mono-2021' ">-->
+<!--    <UnityBackend>Mono</UnityBackend>-->
+<!--    <TargetFramework>netstandard2.1</TargetFramework>-->
+<!--    <DefineConstants>$(DefineConstants);UNITY_500_AND_NEWER;UNITY_2017_AND_NEWER;UNITY_2018_AND_NEWER;UNITY_2019_AND_NEWER;UNITY_2020_AND_NEWER;UNITY_2021_AND_NEWER</DefineConstants>-->
+<!--  </PropertyGroup>-->
+<!--  <PropertyGroup Condition=" '$(Configuration)' == 'il2cpp-2021' ">-->
+<!--    <UnityBackend>IL2CPP</UnityBackend>-->
+<!--    <TargetFramework>netstandard2.1</TargetFramework>-->
+<!--    <DefineConstants>$(DefineConstants);UNITY_500_AND_NEWER;UNITY_2017_AND_NEWER;UNITY_2018_AND_NEWER;UNITY_2019_AND_NEWER;UNITY_2020_AND_NEWER;UNITY_2021_AND_NEWER;CPP</DefineConstants>-->
+<!--  </PropertyGroup>-->
+<!--  -->
+<!--  &lt;!&ndash; Unity 2022 &ndash;&gt;-->
+<!--  <PropertyGroup Condition=" '$(Configuration)' == 'mono-2022' ">-->
+<!--    <UnityBackend>Mono</UnityBackend>-->
+<!--    <TargetFramework>netstandard2.1</TargetFramework>-->
+<!--    <DefineConstants>$(DefineConstants);UNITY_500_AND_NEWER;UNITY_2017_AND_NEWER;UNITY_2018_AND_NEWER;UNITY_2019_AND_NEWER;UNITY_2020_AND_NEWER;UNITY_2021_AND_NEWER;UNITY_2022_AND_NEWER</DefineConstants>-->
+<!--  </PropertyGroup>-->
+<!--  <PropertyGroup Condition=" '$(Configuration)' == 'il2cpp-2022' ">-->
+<!--    <UnityBackend>IL2CPP</UnityBackend>-->
+<!--    <TargetFramework>netstandard2.1</TargetFramework>-->
+<!--    <DefineConstants>$(DefineConstants);UNITY_500_AND_NEWER;UNITY_2017_AND_NEWER;UNITY_2018_AND_NEWER;UNITY_2019_AND_NEWER;UNITY_2020_AND_NEWER;UNITY_2021_AND_NEWER;UNITY_2022_AND_NEWER;CPP</DefineConstants>-->
+<!--  </PropertyGroup>-->
+
+<!--  &lt;!&ndash; Unity 2023 &ndash;&gt;-->
+<!--  <PropertyGroup Condition=" '$(Configuration)' == 'mono-2023' ">-->
+<!--    <UnityBackend>Mono</UnityBackend>-->
+<!--    <TargetFramework>netstandard2.1</TargetFramework>-->
+<!--    <DefineConstants>$(DefineConstants);UNITY_500_AND_NEWER;UNITY_2017_AND_NEWER;UNITY_2018_AND_NEWER;UNITY_2019_AND_NEWER;UNITY_2020_AND_NEWER;UNITY_2021_AND_NEWER;UNITY_2022_AND_NEWER;UNITY_2023_AND_NEWER</DefineConstants>-->
+<!--  </PropertyGroup>-->
+<!--  <PropertyGroup Condition=" '$(Configuration)' == 'il2cpp-2023' ">-->
+<!--    <UnityBackend>IL2CPP</UnityBackend>-->
+<!--    <TargetFramework>netstandard2.1</TargetFramework>-->
+<!--    <DefineConstants>$(DefineConstants);UNITY_500_AND_NEWER;UNITY_2017_AND_NEWER;UNITY_2018_AND_NEWER;UNITY_2019_AND_NEWER;UNITY_2020_AND_NEWER;UNITY_2021_AND_NEWER;UNITY_2022_AND_NEWER;UNITY_2023_AND_NEWER;CPP</DefineConstants>-->
+<!--  </PropertyGroup>-->
+
+<!--  &lt;!&ndash; Unity 6000 &ndash;&gt;-->
+<!--  <PropertyGroup Condition=" '$(Configuration)' == 'mono-6000' ">-->
+<!--    <UnityBackend>Mono</UnityBackend>-->
+<!--    <TargetFramework>netstandard2.1</TargetFramework>-->
+<!--    <DefineConstants>$(DefineConstants);UNITY_500_AND_NEWER;UNITY_2017_AND_NEWER;UNITY_2018_AND_NEWER;UNITY_2019_AND_NEWER;UNITY_2020_AND_NEWER;UNITY_2021_AND_NEWER;UNITY_2022_AND_NEWER;UNITY_2023_AND_NEWER;UNITY_6000_AND_NEWER</DefineConstants>-->
+<!--  </PropertyGroup>-->
+<!--  <PropertyGroup Condition=" '$(Configuration)' == 'il2cpp-6000' ">-->
+<!--    <UnityBackend>IL2CPP</UnityBackend>-->
+<!--    <TargetFramework>netstandard2.1</TargetFramework>-->
+<!--    <DefineConstants>$(DefineConstants);UNITY_500_AND_NEWER;UNITY_2017_AND_NEWER;UNITY_2018_AND_NEWER;UNITY_2019_AND_NEWER;UNITY_2020_AND_NEWER;UNITY_2021_AND_NEWER;UNITY_2022_AND_NEWER;UNITY_2023_AND_NEWER;UNITY_6000_AND_NEWER;CPP</DefineConstants>-->
+<!--  </PropertyGroup>-->
 </Project>

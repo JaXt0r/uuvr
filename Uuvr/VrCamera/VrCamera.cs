@@ -154,7 +154,9 @@ public class VrCamera : UuvrBehaviour
     private void UpdateRelativeMatrix()
     {
         if (ModConfiguration.Instance.CameraTracking.Value != ModConfiguration.CameraTrackingMode.RelativeMatrix) return;
-        
+
+// TODO - Needs more love in terms of this pragma
+#if UNITY_2017_AND_NEWER
         var eye = ParentCamera.stereoActiveEye == Camera.MonoOrStereoscopicEye.Left ? Camera.StereoscopicEye.Left : Camera.StereoscopicEye.Right;
        
         // A bit confused by this.
@@ -169,6 +171,7 @@ public class VrCamera : UuvrBehaviour
             // Some times it's actually better not to call SetStereoViewMatrix, since it messes up the shadows. Like in Aragami.
             ParentCamera.SetStereoViewMatrix(eye, ParentCamera.worldToCameraMatrix);
         }
+#endif
         
         // TODO: reset camera matrices and everything else on disabling VR
     }

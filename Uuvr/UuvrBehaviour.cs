@@ -51,7 +51,8 @@ public class UuvrBehaviour: MonoBehaviour
         {
             Debug.LogWarning($"Failed to listen to BeforeRender: {exception}");
         }
-#else
+// FIXME - Untested
+#elif UNITY_2017_AND_NEWER
         // TODO: This doesn't exist for unity <2017
         Application.onBeforeRender += OnBeforeRender;
 #endif
@@ -75,7 +76,8 @@ public class UuvrBehaviour: MonoBehaviour
         {
             Debug.LogWarning($"Failed to unlisten from BeforeRender: {exception}");
         }
-#else
+// FIXME - Untested
+#elif UNITY_2017_AND_NEWER
         // TODO: This might not exist?
         Application.onBeforeRender -= OnBeforeRender;
 #endif
