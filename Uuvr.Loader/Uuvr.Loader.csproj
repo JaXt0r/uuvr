@@ -16,19 +16,19 @@
     <AssemblyName>UUVR.Loader.$(UnityBackend).$(UnityVersion)</AssemblyName>
   </PropertyGroup>
   
-    <ItemGroup>
-      <Reference Include="..\lib\$(UnityBackend)\$(UnityVersion)\*.dll">
-        <Private>False</Private>
-      </Reference>
-    </ItemGroup>
+  <ItemGroup>
+    <Reference Include="..\lib\$(UnityBackend)\$(UnityVersion)\*.dll" IncludeAssets="compile">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
 
   <ItemGroup Condition=" '$(UnityBackend)' == 'Mono' ">
-    <PackageReference Include="BepInEx.Core" Version="5.4.16" />
+    <PackageReference Include="BepInEx.Core" Version="5.4.16" IncludeAssets="compile" />
   </ItemGroup>
 
   <!--  Il2Cpp  -->
   <ItemGroup Condition=" '$(UnityBackend)' == 'IL2CPP' ">
-    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.692" />
+    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.692" IncludeAssets="compile" />
   </ItemGroup>
 
   <!-- Copy end-user README into plugin output folder -->

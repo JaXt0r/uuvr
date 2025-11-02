@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -44,76 +45,111 @@ public partial class LoaderPlugin
     {
         try
         {
-            Logger.LogInfo("Loading implementation");
+            Logger.LogInfo("==========");
+            LogInitialInformation();
 
-            if (IsUuvrAlreadyLoaded())
-            {
-                Logger.LogWarning("Uuvr already loaded. Some Unity versions load both Loader versions (legacy+modern). We skip the second one now.");
-                return;
-            }
-            
-            var pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-            var implDir = Path.Combine(Path.Combine(pluginDir, "Uuvr"), "implementation");
-            
-            if (!Directory.Exists(implDir))
-                implDir = Path.Combine(pluginDir, "implementation"); // fallback if user moved dlls
-
-            var backend = IsIl2CppRuntime() ? "Il2cpp" : "Mono";
-            var generation = IsModernUnity() ? "Modern" : "Legacy";
-            var fileName = $"UUVR.{backend}.{generation}.dll";
-            var implPath = Directory.GetFiles(implDir, fileName, SearchOption.TopDirectoryOnly).FirstOrDefault();
-            
-            if (implPath == null)
-                throw new FileNotFoundException($"UUVR implementation not found: {fileName} in {implDir}");
-
-            Logger.LogInfo($"Loading implementation: {implPath}");
-
-            var asm = Assembly.LoadFile(implPath);
-            var bootstrapType = asm.GetType("Uuvr.UuvrBootstrap", throwOnError: true)!;
-            var startMethod = bootstrapType.GetMethod("Start", BindingFlags.Public | BindingFlags.Static);
-            
-            if (startMethod == null)
-                throw new MissingMethodException("Uuvr.UuvrBootstrap.Start(ConfigFile)");
-
-            // Pass BepInEx ConfigFile from this plugin
-            startMethod.Invoke(null, new object?[] { GetConfigFile() });
+            var allImplementations = GetAllImplementationVersions();
+            var implementationName = GetMatchingImplementation(allImplementations);
         }
         catch (Exception e)
         {
             Logger.LogError($"Failed to bootstrap UUVR: {e}");
         }
     }
-
-    /// <summary>
-    /// Some Unity games / BepInEx versions support bootstrapping Mono loader compiled with .net35 and .net48. We skip the second one for now
-    /// and assume, that the other execution loaded properly. 
-    /// </summary>
-    /// <returns></returns>
-    private bool IsUuvrAlreadyLoaded()
+    
+    private void LogInitialInformation()
     {
-        foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+        Logger.LogInfo("===Log initial environment information. Useful for troubleshooting.===");
+        Logger.LogInfo(".NET Environment Version:" + Environment.Version);
+        Logger.LogInfo($"Unity Version: {GetUnityVersion()}");
+        Logger.LogInfo($"Game is IL2CPP: {IsIl2CppRuntime()}");
+        Logger.LogInfo($"Game is x64: {Is64Bit()}");
+        Logger.LogInfo($"Game Exe directory: {Directory.GetCurrentDirectory()}");
+        Logger.LogInfo($"This Loader .dll path: {Assembly.GetExecutingAssembly().Location}");
+        Logger.LogInfo($"This Loader Plugin Information: {Info.Metadata.Name} {Info.Metadata.Version}");
+    }
+
+    private string GetUnityVersion()
+    {
+        var appType = Type.GetType("UnityEngine.Application, UnityEngine");
+        var prop = appType?.GetProperty("unityVersion", BindingFlags.Public | BindingFlags.Static);
+        return prop?.GetValue(null, null) as string;
+    }
+
+    private bool Is64Bit()
+    {
+        // IntPtr size is 4 on x86, 8 on x64.
+        return IntPtr.Size == 8;
+    }
+        
+    private bool IsIl2CppRuntime()
+    {
+        try
         {
-            if (assembly.GetName().Name.StartsWith("Uuvr.Mono") || assembly.GetName().Name.StartsWith("Uuvr.Il2cpp"))
-                return true;
+            var gameFolder = Directory.GetCurrentDirectory();
+            if (string.IsNullOrEmpty(gameFolder))
+                return false;
+
+            return File.Exists(Path.Combine(gameFolder, "GameAssembly.dll")) ||
+                   File.Exists(Path.Combine(gameFolder, "GameAssembly.so"));
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    
+    private Dictionary<string, string> GetAllImplementationVersions()
+    {
+        var implementations = new Dictionary<string, string>();
+        var pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+        var implDir = Path.Combine(pluginDir, "implementation");
+        
+        if (!Directory.Exists(implDir))
+        {
+            throw new DirectoryNotFoundException($"Implementation directory not found: {implDir}");
         }
 
-        return false;
+        Logger.LogInfo($"Searching for implementations in: {implDir}");
+        var files = Directory.GetFiles(implDir, "UUVR.Implementation.*.dll");
+        foreach (var file in files)
+        {
+            var fileName = Path.GetFileNameWithoutExtension(file);
+            var version = fileName.Replace("UUVR.Implementation.", "");
+            implementations[version] = file;
+            Logger.LogInfo($"Found implementation: {fileName} ({version})");
+        }
+        
+        return implementations;
     }
 
-    private object? GetConfigFile()
-    {
-        // Both BaseUnityPlugin and BasePlugin expose Config property
-        var prop = GetType().GetProperty("Config", BindingFlags.Public | BindingFlags.Instance);
-        return prop?.GetValue(this, null);
-    }
 
-    private static bool IsIl2CppRuntime()
+    // FIXME - Test and improve
+    private string GetMatchingImplementation(Dictionary<string, string> allImplementations)
     {
-#if CPP
-        return true;
-#else
-        return false;
-#endif
+        var pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+        var implDir = Path.Combine(Path.Combine(pluginDir, "UUVR"), "implementation");
+
+        if (!Directory.Exists(implDir))
+        {
+            throw new DirectoryNotFoundException($"Implementation directory not found. Can't load UUVR: {implDir}");
+        }
+
+        var backend = IsIl2CppRuntime() ? "Il2cpp" : "Mono";
+        var generation = IsModernUnity() ? "Modern" : "Legacy";
+        var fileName = $"UUVR.{backend}.{generation}.dll";
+        var implPath = Directory.GetFiles(implDir, fileName, SearchOption.TopDirectoryOnly).FirstOrDefault();
+            
+        if (implPath == null)
+            throw new FileNotFoundException($"UUVR implementation not found: {fileName} in {implDir}");
+
+        Logger.LogInfo($"Loading implementation: {implPath}");
+
+        var asm = Assembly.LoadFile(implPath);
+        var bootstrapType = asm.GetType("Uuvr.UuvrBootstrap", throwOnError: true)!;
+        var startMethod = bootstrapType.GetMethod("Start", BindingFlags.Public | BindingFlags.Static);
+
+        return "";
     }
 
     private static bool IsModernUnity()
