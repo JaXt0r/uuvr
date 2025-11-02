@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using BepInEx;
+using UUVR.Loader;
 #if CPP
 using BepInEx.Logging;
 using BepInEx.Unity.IL2CPP;
@@ -13,16 +14,9 @@ using BepInEx.Unity.IL2CPP;
 namespace Uuvr.Loader;
 
 #if MONO
-[BepInPlugin("raicuparta.uuvr.loader-mono", "UUVR.Loader.Mono", "0.4.0")]
+[BepInPlugin(GeneratedPluginInfo.PLUGIN_GUID, GeneratedPluginInfo.PLUGIN_NAME, GeneratedPluginInfo.PLUGIN_VERSION)]
 public partial class LoaderPlugin : BaseUnityPlugin
 {
-    private const string _implDir = "implementations";
-    private const string _toolsDir = "tools";
-    private const string _gamePluginsDir = "game-plugins";
-    
-    private const string _steamVRUnity5FileName = "UUVR.SteamVR.2.6.1.dll";
-    private const string _steamVRUnity2018FileName = "UUVR.SteamVR.2.8.0.dll";
-    
     private void Awake()
     {
         Bootstrap();
@@ -49,6 +43,14 @@ public partial class LoaderPlugin : BasePlugin
 
 public partial class LoaderPlugin
 {
+    private const string _implDir = "implementations";
+    private const string _toolsDir = "tools";
+    private const string _gamePluginsDir = "game-plugins";
+    
+    private const string _steamVRUnity5FileName = "UUVR.SteamVR.2.6.1.dll";
+    private const string _steamVRUnity2018FileName = "UUVR.SteamVR.2.8.0.dll";
+    
+    
     private class ImplementationInfo
     {
         public string Backend { get; }

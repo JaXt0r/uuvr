@@ -37,5 +37,32 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+
+  <Target Name="AddGeneratedFile" BeforeTargets="BeforeCompile;CoreCompile">
+    <PropertyGroup>
+      <BepInExPluginGuid Condition="'$(BepInExPluginGuid)' == ''">$(AssemblyName)</BepInExPluginGuid>
+      <BepInExPluginName Condition="'$(BepInExPluginName)' == ''">$(Product)</BepInExPluginName>
+      <BepInExPluginVersion Condition="'$(BepInExPluginVersion)' == ''">$(Version)</BepInExPluginVersion>
+      <GeneratedText><![CDATA[
+namespace $(RootNamespace)
+{
+    internal static class GeneratedPluginInfo
+    {
+        public const string PLUGIN_GUID = "$(BepInExPluginGuid)"%3B
+        public const string PLUGIN_NAME = "$(BepInExPluginName)"%3B 
+        public const string PLUGIN_VERSION = "$(BepInExPluginVersion)"%3B
+    }
+}
+      ]]></GeneratedText>
+      <GeneratedFilePath>$(IntermediateOutputPath)GeneratedPluginInfo.cs</GeneratedFilePath>
+    </PropertyGroup>
+
+    <WriteLinesToFile Lines="$(GeneratedText)" File="$(GeneratedFilePath)" WriteOnlyWhenDifferent="true" Overwrite="true" />
+
+    <ItemGroup>
+      <Compile Include="$(GeneratedFilePath)" />
+      <FileWrites Include="$(GeneratedFilePath)" />
+    </ItemGroup>
+  </Target>
   
 </Project>

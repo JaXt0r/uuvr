@@ -8,6 +8,14 @@
   <PropertyGroup>
     <!-- Default/fallback value if not overridden -->
     <BepInExDir Condition="'$(BepInExDir)' == ''">C:\Users\rai\AppData\Roaming\raicuparta\rai-pal\data\mod-loaders\bepinex</BepInExDir>
+
+    <!-- Plugin information for BepInEx to log. -->
+    <BepInExPluginGuid>raicuparta.uuvr</BepInExPluginGuid>
+    <BepInExPluginName>UUVR</BepInExPluginName>
+    <!-- If provided via msbuild, the version is set dynamically at compile time. -->
+    <BepInExPluginVersion Condition="'$(UUVRReleaseVersion)' != ''">$(ExtVersion)</BepInExPluginVersion>
+    <!-- Fallback: Current 0.0.0 as strings aren't allowed. -->
+    <BepInExPluginVersion Condition="'$(UUVRReleaseVersion)' == ''">0.0.0</BepInExPluginVersion>
   </PropertyGroup>
 
   <!-- Loader -->
