@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Uuvr.VrUi;
+namespace UUVR.VrUi;
 
 public class UiOverlayRenderMode: UuvrBehaviour
 {

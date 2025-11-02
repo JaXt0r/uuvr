@@ -4,7 +4,7 @@ using Unity.XR.OpenVR;
 using UnityEngine;
 using UnityEngine.XR.Management;
 
-namespace Uuvr.VrTogglers;
+namespace UUVR.VrTogglers;
 
 public abstract class XrPluginToggler: VrToggler
 {

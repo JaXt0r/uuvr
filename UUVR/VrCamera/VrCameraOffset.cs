@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Uuvr.VrCamera;
+namespace UUVR.VrCamera;
 
 // TODO: add manual offsets.
 public class VrCameraOffset: UuvrBehaviour

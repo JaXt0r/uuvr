@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Uuvr.VrUi.PatchModes;
+namespace UUVR.VrUi.PatchModes;
 
 public class CanvasRedirectPatchMode : UuvrBehaviour, VrUiPatchMode
 {

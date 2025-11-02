@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.XR.Management;
 using UnityEngine.XR.OpenXR;
 
-namespace Uuvr.VrTogglers;
+namespace UUVR.VrTogglers;
 
 public class XrPluginOpenXrToggler: XrPluginToggler
 {

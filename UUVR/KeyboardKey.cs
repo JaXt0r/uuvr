@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace Uuvr;
+namespace UUVR;
 
 // Even though Unity has its own Input stuff, there are multiple input systems that can be used,
 // and different Unity versions have slightly different APIs for the same input system.

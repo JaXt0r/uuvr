@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Uuvr.VrUi.PatchModes;
+namespace UUVR.VrUi.PatchModes;
 
 public interface VrUiPatchMode
 {

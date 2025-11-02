@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Uuvr.VrUi.PatchModes;
 
-namespace Uuvr.VrUi;
+namespace UUVR.VrUi;
 
 public class VrUiManager : UuvrBehaviour
 {

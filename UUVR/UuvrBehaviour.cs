@@ -6,7 +6,7 @@ using BepInEx.Configuration;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace Uuvr;
+namespace UUVR;
 
 public class UuvrBehaviour: MonoBehaviour
 {

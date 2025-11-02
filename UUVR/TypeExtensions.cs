@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace Uuvr;
+namespace UUVR;
 
 public static class TypeExtensions
 {

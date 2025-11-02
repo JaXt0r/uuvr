@@ -2,7 +2,7 @@
 using BepInEx.Configuration;
 using UnityEngine;
 
-namespace Uuvr;
+namespace UUVR;
 
 public class ModConfiguration
 {

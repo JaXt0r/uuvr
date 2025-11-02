@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Uuvr.VrUi.PatchModes;
+namespace UUVR.VrUi.PatchModes;
 
 public class CanvasRedirect: UuvrBehaviour
 {

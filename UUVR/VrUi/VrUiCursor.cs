@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using UnityEngine;
 
-namespace Uuvr.VrUi;
+namespace UUVR.VrUi;
 
 // The mouse cursor isn't visible in the VR UI plane, unless it's being rendered in software mode.
 // So we use a custom mouse cursor graphic and render that.
@@ -18,7 +18,7 @@ public class VrUiCursor: UuvrBehaviour
 
     private void Start()
     {        
-        var bytes = File.ReadAllBytes(Path.Combine(UuvrBootstrap.ModFolderPath, @"Assets\cursor.bmp"));
+        var bytes = File.ReadAllBytes(Path.Combine(UUVRBootstrap.ModFolderPath, @"Assets\cursor.bmp"));
         
         // Read dimensions from BMP header
         var width = bytes[18] + (bytes[19] << 8);

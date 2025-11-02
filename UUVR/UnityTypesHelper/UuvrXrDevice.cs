@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Uuvr.UnityTypesHelper;
+namespace UUVR.UnityTypesHelper;
 
 public static class UuvrXrDevice
 {

@@ -12,7 +12,7 @@ using Uuvr.VrCamera;
 using BepInEx.Unity.IL2CPP.Utils;
 #endif
 
-namespace Uuvr.VrUi.PatchModes;
+namespace UUVR.VrUi.PatchModes;
 
 public class ScreenMirrorPatchMode : UuvrBehaviour, VrUiPatchMode
 {

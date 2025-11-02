@@ -12,16 +12,16 @@ using Uuvr.VrUi.PatchModes;
 using Il2CppInterop.Runtime.Injection;
 #endif
 
-namespace Uuvr;
+namespace UUVR;
 
 // Non-plugin bootstrap entry point invoked by Uuvr.Loader
-public static class UuvrBootstrap
+public static class UUVRPlugin
 {
     public static string ModFolderPath { get; private set; }
 
     public static void Start(ConfigFile config)
     {
-        ModFolderPath = Path.GetDirectoryName(Assembly.GetAssembly(typeof(UuvrBootstrap)).Location);
+        ModFolderPath = Path.GetDirectoryName(Assembly.GetAssembly(typeof(UUVRBootstrap)).Location);
         
         new ModConfiguration(config);
         

@@ -1,7 +1,7 @@
 ﻿using System;
 using BepInEx.Configuration;
 
-namespace Uuvr.VrTogglers;
+namespace UUVR.VrTogglers;
 
 public class VrTogglerManager
 {

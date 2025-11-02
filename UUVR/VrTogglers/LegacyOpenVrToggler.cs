@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Uuvr.VrTogglers;
+namespace UUVR.VrTogglers;
 
 public class LegacyOpenVrToggler: VrToggler
 {

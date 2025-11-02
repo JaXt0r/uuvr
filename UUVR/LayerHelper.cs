@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Uuvr;
+namespace UUVR;
 
 public static class LayerHelper
 {

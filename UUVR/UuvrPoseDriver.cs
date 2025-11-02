@@ -3,7 +3,7 @@ using System.Reflection;
 using UnityEngine;
 using Uuvr.UnityTypesHelper;
 
-namespace Uuvr;
+namespace UUVR;
 
 public class UuvrPoseDriver: UuvrBehaviour
 {

@@ -308,13 +308,27 @@ public partial class LoaderPlugin
     {
         try
         {
-            Logger.LogWarning(implementationName);
-            Assembly.LoadFrom(implementationName);
+            var asm = Assembly.LoadFrom(implementationName);
+            var bootstrapType = asm.GetType("Uuvr.UUVRPlugin", throwOnError: true)!;
+            var startMethod = bootstrapType.GetMethod("Start", BindingFlags.Public | BindingFlags.Static);
+            
+            if (startMethod == null)
+                throw new MissingMethodException("UUVR.UUVRPlugin.Start(ConfigFile)");
+
+            // Pass BepInEx ConfigFile from this plugin
+            startMethod.Invoke(null, new [] { GetConfigFile() });
         }
         catch (Exception e)
         {
             Logger.LogError($"Failed to load implementation {implementationName}: {e}");
             throw;
         }
+    }
+    
+    private object GetConfigFile()
+    {
+        // Both BaseUnityPlugin and BasePlugin expose Config property
+        var prop = GetType().GetProperty("Config", BindingFlags.Public | BindingFlags.Instance);
+        return prop?.GetValue(this, null);
     }
 }

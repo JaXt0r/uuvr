@@ -4,7 +4,7 @@
 // using UnityEngine;
 // using Valve.VR;
 //
-// namespace Uuvr;
+// namespace UUVR;
 //
 // public class UuvrInput: UuvrBehaviour
 // {

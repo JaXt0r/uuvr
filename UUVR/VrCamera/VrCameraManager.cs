@@ -4,7 +4,7 @@ using Il2CppInterop.Runtime.InteropTypes.Arrays;
 #endif
 using UnityEngine;
 
-namespace Uuvr.VrCamera;
+namespace UUVR.VrCamera;
 
 public class VrCameraManager: MonoBehaviour
 {

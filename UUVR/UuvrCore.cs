@@ -5,7 +5,7 @@ using Uuvr.VrCamera;
 using Uuvr.VrTogglers;
 using Uuvr.VrUi;
 
-namespace Uuvr;
+namespace UUVR;
 
 public class UuvrCore: MonoBehaviour
 {

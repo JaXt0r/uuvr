@@ -5,7 +5,7 @@ using System.Collections.Generic;
 #endif
 using UnityEngine;
 
-namespace Uuvr.VrCamera;
+namespace UUVR.VrCamera;
 
 public class VrCamera : UuvrBehaviour
 {

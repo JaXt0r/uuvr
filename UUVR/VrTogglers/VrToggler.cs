@@ -1,6 +1,6 @@
 ﻿using BepInEx.Configuration;
 
-namespace Uuvr.VrTogglers;
+namespace UUVR.VrTogglers;
 
 public abstract class VrToggler
 {

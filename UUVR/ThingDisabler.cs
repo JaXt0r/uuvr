@@ -4,7 +4,7 @@ using System.Linq;
 using BepInEx;
 using UnityEngine;
 
-namespace Uuvr;
+namespace UUVR;
 
 // TODO a lot of uncached reflection here.
 // I want to overhaul the config for this anyway, so will clean this up when that time comes.
