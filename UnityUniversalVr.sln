@@ -15,13 +15,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uuvr.XR.Management", "Uuvr.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Uuvr.XInput", "Uuvr.XInput\Uuvr.XInput.vcxproj", "{189421C5-47DA-4948-999E-16CED2DE436D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uuvr.SteamVR.LATEST", "Uuvr.SteamVR.LATEST\Uuvr.SteamVR.LATEST.csproj", "{DBC32AA0-BC31-4826-8B43-C57A2D1EA140}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UUVR.Loader", "UUVR.Loader\UUVR.Loader.csproj", "{E2C4A4C9-2B7A-4A4D-9C2A-7C4B7F1E3A10}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SteamVR", "SteamVR", "{0EC88089-09E0-4995-AC64-BC37DBCA3EC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uuvr.SteamVR.2_6_1", "Uuvr.SteamVR.2_6_1\Uuvr.SteamVR.2_6_1.csproj", "{DB63158C-CEEA-458D-838E-F0825FF256D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uuvr.SteamVR.LATEST", "UUVR.SteamVR\Uuvr.SteamVR.LATEST\Uuvr.SteamVR.LATEST.csproj", "{DBC32AA0-BC31-4826-8B43-C57A2D1EA140}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uuvr.SteamVR.2_6_1", "UUVR.SteamVR\Uuvr.SteamVR.2_6_1\Uuvr.SteamVR.2_6_1.csproj", "{DB63158C-CEEA-458D-838E-F0825FF256D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
