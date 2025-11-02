@@ -118,13 +118,16 @@ public partial class LoaderPlugin
             
             Logger.LogInfo("===Load additional tool dependencies.===");
             LoadToolDependencies();
+            
+            Logger.LogInfo("===Load game specific plugins.===");
+            LoadGamePlugins();
         }
         catch (Exception e)
         {
             Logger.LogError($"Failed to bootstrap UUVR: {e}");
         }
     }
-    
+
     private void LogInitialInformation()
     {
         Logger.LogInfo("===Log initial environment information. Useful for troubleshooting.===");
@@ -378,5 +381,23 @@ public partial class LoaderPlugin
         
         Logger.LogInfo($"Loading SteamVR: {steamVRDll}");
         Assembly.LoadFile(steamVRDll);
+    }
+    
+    private void LoadGamePlugins()
+    {
+        LoadRewired();
+    }
+
+    private void LoadRewired()
+    {
+        var implementations = new Dictionary<string, ImplementationInfo>();
+        var pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+        var gamePluginsDir = Path.Combine(pluginDir, _gamePluginsDir);
+
+        if (!AppDomain.CurrentDomain.GetAssemblies().Any(a => a.GetName().Name == "Rewired_Core"))
+            return;
+        
+        Logger.LogInfo("Found Rewired as Game dependency. Loading appropriate UUVR plugin.");
+        Logger.LogWarning("TBD: Splitting Rewired logic into separate dll not yet done.");
     }
 }
