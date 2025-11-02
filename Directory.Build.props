@@ -35,9 +35,9 @@
   
   
   <!-- Unity 5 -->
-  <PropertyGroup Condition=" '$(Configuration)' == 'Mono-5' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Mono-543p3' ">
     <UnityBackend>Mono</UnityBackend>
-    <UnityGeneration>500</UnityGeneration>
+    <UnityVersion>543p3</UnityVersion>
     <TargetFramework>net35</TargetFramework>
     <DefineConstants>$(DefineConstants);UNITY_500_AND_NEWER</DefineConstants>
   </PropertyGroup>

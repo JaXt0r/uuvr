@@ -1,22 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-      <Configurations>Mono-5;skip</Configurations>
-      <TargetFrameworks>net35;netstandard2.0;netstandard2.1</TargetFrameworks> <!-- Required for NuGet.Restore -->
-      <Nullable>enable</Nullable>
-      <Platforms>AnyCPU</Platforms>
-      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-      <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
-      <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-      <LangVersion>10</LangVersion>
-      <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-      <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
-      <DebugType>none</DebugType>
-      <OutputPath>$(BepInExDir)\plugins\UUVR\implementation</OutputPath>
-      <RootNamespace>UUVR</RootNamespace>
+    <Configurations>skip;Mono-543p3</Configurations>
+    <TargetFrameworks>net35;netstandard2.0;netstandard2.1</TargetFrameworks> <!-- Required for NuGet.Restore -->
+    <Nullable>enable</Nullable>
+    <Platforms>AnyCPU</Platforms>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <LangVersion>10</LangVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
+    <DebugType>none</DebugType>
+    <OutputPath>$(BepInExDir)\plugins\UUVR\implementation</OutputPath>
+    <RootNamespace>UUVR</RootNamespace>
+    <AssemblyName>UUVR.$(UnityBackend).$(UnityVersion)</AssemblyName>
   </PropertyGroup>
-  
+
   <ItemGroup>
-    <Reference Include="..\lib\$(UnityBackend)\$(UnityGeneration)\*.dll">
+    <Reference Include="..\lib\$(UnityBackend)\$(UnityVersion)\*.dll">
       <Private>False</Private>
     </Reference>
     <Content Include="Assets\**" >
@@ -26,12 +27,12 @@
 
   <!--  Mono  -->
   <ItemGroup Condition=" '$(UnityBackend)' == 'Mono' ">
-    <PackageReference Include="BepInEx.Core" Version="5.4.16" />
+    <PackageReference Include="BepInEx.Core" Version="5.4.21" IncludeAssets="compile" />
   </ItemGroup>
 
   <!--  Il2Cpp  -->
   <ItemGroup Condition=" '$(UnityBackend)' == 'IL2CPP' ">
-    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.692" />
+    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.738" IncludeAssets="compile" />
   </ItemGroup>
 
   <!--  Modern  -->

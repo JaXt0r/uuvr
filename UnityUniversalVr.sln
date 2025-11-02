@@ -25,14 +25,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uuvr.SteamVR.2_6_1", "Uuvr.
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Mono-5|Any CPU = Mono-5|Any CPU
 		Loader-Mono-543p3|Any CPU = Loader-Mono-543p3|Any CPU
+		Mono-543p3|Any CPU = Mono-543p3|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D28B08FD-9318-42A7-A475-29001E60189D}.Mono-5|Any CPU.ActiveCfg = Mono-5|Any CPU
-		{D28B08FD-9318-42A7-A475-29001E60189D}.Mono-5|Any CPU.Build.0 = Mono-5|Any CPU
 		{E2C4A4C9-2B7A-4A4D-9C2A-7C4B7F1E3A10}.Loader-Mono-543p3|Any CPU.ActiveCfg = Loader-Mono-543p3|Any CPU
 		{E2C4A4C9-2B7A-4A4D-9C2A-7C4B7F1E3A10}.Loader-Mono-543p3|Any CPU.Build.0 = Loader-Mono-543p3|Any CPU
+		{D28B08FD-9318-42A7-A475-29001E60189D}.Mono-543p3|Any CPU.ActiveCfg = Mono-543p3|Any CPU
+		{D28B08FD-9318-42A7-A475-29001E60189D}.Mono-543p3|Any CPU.Build.0 = Mono-543p3|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
