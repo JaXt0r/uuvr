@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configurations>Loader-Mono-543p3</Configurations>
+    <Configurations>Loader-Mono-543p3;SteamVR-2.6.1</Configurations>
     <TargetFrameworks>net35;netstandard2.0;netstandard2.1</TargetFrameworks> <!-- Required for NuGet.Restore -->
     <Nullable>disable</Nullable>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -9,11 +9,11 @@
     <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Platforms>AnyCPU</Platforms>
-    <OutputPath>$(BepInExDir)\plugins\UUVR\</OutputPath>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <DebugType>none</DebugType>
-    <RootNamespace>UUVR.Loader</RootNamespace>
+    <OutputPath>$(BepInExDir)\plugins\UUVR\</OutputPath>
     <AssemblyName>UUVR.Loader.$(UnityBackend).$(UnityVersion)</AssemblyName>
+    <RootNamespace>UUVR.Loader</RootNamespace>
   </PropertyGroup>
   
   <ItemGroup>

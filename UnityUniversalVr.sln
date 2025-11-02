@@ -27,12 +27,15 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Loader-Mono-543p3|Any CPU = Loader-Mono-543p3|Any CPU
 		Mono-543p3|Any CPU = Mono-543p3|Any CPU
+		SteamVR-2.6.1|Any CPU = SteamVR-2.6.1|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{E2C4A4C9-2B7A-4A4D-9C2A-7C4B7F1E3A10}.Loader-Mono-543p3|Any CPU.ActiveCfg = Loader-Mono-543p3|Any CPU
 		{E2C4A4C9-2B7A-4A4D-9C2A-7C4B7F1E3A10}.Loader-Mono-543p3|Any CPU.Build.0 = Loader-Mono-543p3|Any CPU
 		{D28B08FD-9318-42A7-A475-29001E60189D}.Mono-543p3|Any CPU.ActiveCfg = Mono-543p3|Any CPU
 		{D28B08FD-9318-42A7-A475-29001E60189D}.Mono-543p3|Any CPU.Build.0 = Mono-543p3|Any CPU
+		{DB63158C-CEEA-458D-838E-F0825FF256D5}.SteamVR-2.6.1|Any CPU.ActiveCfg = SteamVR-2.6.1|Any CPU
+		{DB63158C-CEEA-458D-838E-F0825FF256D5}.SteamVR-2.6.1|Any CPU.Build.0 = SteamVR-2.6.1|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

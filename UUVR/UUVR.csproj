@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configurations>skip;Mono-543p3</Configurations>
+    <Configurations>skip;Mono-543p3;SteamVR-2.6.1</Configurations>
     <TargetFrameworks>net35;netstandard2.0;netstandard2.1</TargetFrameworks> <!-- Required for NuGet.Restore -->
     <Nullable>enable</Nullable>
     <Platforms>AnyCPU</Platforms>

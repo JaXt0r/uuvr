@@ -20,7 +20,7 @@ public partial class LoaderPlugin : BaseUnityPlugin
     private const string _toolsDir = "tools";
     private const string _gamePluginsDir = "game-plugins";
     
-    private const string _steamVRUnity5FileName = "SteamVR.2.6.1.dll";
+    private const string _steamVRUnity5FileName = "UUVR.SteamVR.2.6.1.dll";
     private const string _steamVRUnity2018FileName = "UUVR.SteamVR.2.8.0.dll";
     
     private void Awake()

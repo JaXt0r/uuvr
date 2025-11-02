@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net35</TargetFramework>
     <Nullable>enable</Nullable>
-    <Configurations>il2cpp-legacy;il2cpp-modern;mono-legacy;mono-modern</Configurations>
+    <Configurations>il2cpp-legacy;il2cpp-modern;mono-legacy;mono-modern;SteamVR-2.6.1</Configurations>
     <Platforms>AnyCPU</Platforms>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>

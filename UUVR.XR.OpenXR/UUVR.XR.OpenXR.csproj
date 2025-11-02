@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <Nullable>enable</Nullable>
-        <Configurations>il2cpp-legacy;il2cpp-modern;mono-legacy;mono-modern;Mono-5</Configurations>
+        <Configurations>il2cpp-legacy;il2cpp-modern;mono-legacy;mono-modern;Mono-5;SteamVR-2.6.1</Configurations>
         <Platforms>AnyCPU</Platforms>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>

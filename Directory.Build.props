@@ -32,6 +32,15 @@
 <!--    <UnityGeneration>2021</UnityGeneration>-->
 <!--    <TargetFramework>netstandard2.1</TargetFramework>-->
 <!--  </PropertyGroup>-->
+
+
+  <!-- Plugins -->
+  <PropertyGroup Condition=" '$(Configuration)' == 'SteamVR-2.6.1' ">
+    <UnityBackend>Mono</UnityBackend>
+    <UnityVersion>5.4.3p3</UnityVersion>
+    <TargetFramework>net35</TargetFramework>
+    <DefineConstants>$(DefineConstants);MONO;UNITY_5_4</DefineConstants>
+  </PropertyGroup>
   
   
   <!-- Unity 5 -->

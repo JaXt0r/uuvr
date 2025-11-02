@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configurations>il2cpp-legacy;il2cpp-modern;mono-legacy;mono-modern;Mono-5;Loader-Mono-543p3</Configurations>
+    <Configurations>SteamVR-2.6.1</Configurations>
     <TargetFramework>net35</TargetFramework> <!-- Required for NuGet.Restore -->
     <Nullable>enable</Nullable>
     <Platforms>AnyCPU</Platforms>
@@ -11,29 +11,17 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
     <DebugType>none</DebugType>
-<!--    <OutputPath>$(BepInExDir)\mods\$(UnityBackendFolderName)\uuvr-$(UnityBackend)-$(UnityGeneration)\plugins</OutputPath>-->
-    <RootNamespace>UUVR.SteamVR.2_6_1</RootNamespace>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Loader-Mono-543p3' ">
-    <UnityBackend>Mono</UnityBackend>
-    <UnityGeneration>500</UnityGeneration>
-    <TargetFramework>net35</TargetFramework>
-    <DefineConstants>$(DefineConstants);MONO</DefineConstants>
+    <RootNamespace>UUVR.SteamVR._2_6_1</RootNamespace>
+    <OutputPath>$(BepInExDir)\plugins\UUVR\tools</OutputPath>
+    <AssemblyName>UUVR.SteamVR.2.6.1</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="..\lib\$(UnityBackend)\$(UnityGeneration)\*.dll">
+    <Reference Include="..\..\lib\$(UnityBackend)\$(UnityVersion)\*.dll">
       <Private>False</Private>
     </Reference>
-    <Reference Include="..\lib\Valve.Newtonsoft.Json.dll">
+    <Reference Include="..\..\lib\Valve.Newtonsoft.Json.dll">
       <Private>True</Private>
     </Reference>
   </ItemGroup>
-
-  <!--  Modern  -->
-  <!--  <ItemGroup Condition=" '$(UnityGeneration)' == 'modern' ">-->
-  <!--    <ProjectReference Include="..\Uuvr.XR.OpenVR\Uuvr.XR.OpenVR.csproj" />-->
-  <!--    <ProjectReference Include="..\Uuvr.XR.OpenXR\Uuvr.XR.OpenXR.csproj" />-->
-  <!--  </ItemGroup>-->
-
 </Project>
