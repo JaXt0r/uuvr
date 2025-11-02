@@ -123,7 +123,6 @@ public partial class LoaderPlugin
         return implementations;
     }
 
-
     // FIXME - Test and improve
     private string GetMatchingImplementation(Dictionary<string, string> allImplementations)
     {
