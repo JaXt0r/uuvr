@@ -13,7 +13,7 @@
   <!-- Loader -->
   <PropertyGroup Condition=" '$(Configuration)' == 'Loader-Mono-543p3' ">
     <UnityBackend>Mono</UnityBackend>
-    <UnityVersion>543p3</UnityVersion>
+    <UnityVersion>5.4.3p3</UnityVersion>
     <TargetFramework>net35</TargetFramework>
     <DefineConstants>$(DefineConstants);MONO</DefineConstants>
   </PropertyGroup>
@@ -37,7 +37,7 @@
   <!-- Unity 5 -->
   <PropertyGroup Condition=" '$(Configuration)' == 'Mono-543p3' ">
     <UnityBackend>Mono</UnityBackend>
-    <UnityVersion>543p3</UnityVersion>
+    <UnityVersion>5.4.3p3</UnityVersion>
     <TargetFramework>net35</TargetFramework>
     <DefineConstants>$(DefineConstants);UNITY_500_AND_NEWER</DefineConstants>
   </PropertyGroup>

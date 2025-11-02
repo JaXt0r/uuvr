@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using BepInEx;
 #if CPP
 using BepInEx.Logging;
@@ -41,6 +42,47 @@ public partial class LoaderPlugin : BasePlugin
 
 public partial class LoaderPlugin
 {
+    private class ImplementationInfo
+    {
+        public string Backend { get; }
+        public UnityVersion Version { get; }
+
+        public struct UnityVersion
+        {
+            public int Major { get; }
+            public int Minor { get; }
+            public string Patch { get; }
+
+            public UnityVersion(string versionString)
+            {
+                // Unity version format: "2020.3.47f1", "2019.4.40", etc.
+                var match = Regex.Match(versionString, @"^(\d+)\.(\d+)(?:\.(\d+[a-zA-Z]\d+))?");
+                if (!match.Success)
+                {
+                    Major = 0;
+                    Minor = 0;
+                    Patch = "23";
+                    return;
+                }
+
+                Major = int.Parse(match.Groups[1].Value);
+                Minor = int.Parse(match.Groups[2].Value);
+                Patch = match.Groups[3].Success ? match.Groups[3].Value : "";
+            }
+
+            public override string ToString()
+            {
+                return $"{Major}.{Minor}.{Patch}";
+            }
+        }
+
+        public ImplementationInfo(string backend, string versionString)
+        {
+            Backend = backend;
+            Version = new UnityVersion(versionString);
+        }
+    }
+
     private void Bootstrap()
     {
         try
@@ -48,15 +90,19 @@ public partial class LoaderPlugin
             Logger.LogInfo("==========");
             LogInitialInformation();
 
+            Logger.LogInfo("===Load implementations.===");
             var allImplementations = GetAllImplementationVersions();
+            Logger.LogInfo("===Calculate best fitting implementation.===");
             var implementationName = GetMatchingImplementation(allImplementations);
+            Logger.LogInfo("===Last log from Loader. Loading implementation/UUVR dll now. See you in Unity Logs. ^_^===");
+            LoadImplementation(implementationName);
         }
         catch (Exception e)
         {
             Logger.LogError($"Failed to bootstrap UUVR: {e}");
         }
     }
-    
+
     private void LogInitialInformation()
     {
         Logger.LogInfo("===Log initial environment information. Useful for troubleshooting.===");
@@ -69,11 +115,11 @@ public partial class LoaderPlugin
         Logger.LogInfo($"This Loader Plugin Information: {Info.Metadata.Name} {Info.Metadata.Version}");
     }
 
-    private string GetUnityVersion()
+    private ImplementationInfo.UnityVersion GetUnityVersion()
     {
         var appType = Type.GetType("UnityEngine.Application, UnityEngine");
         var prop = appType?.GetProperty("unityVersion", BindingFlags.Public | BindingFlags.Static);
-        return prop?.GetValue(null, null) as string;
+        return new ImplementationInfo.UnityVersion(prop?.GetValue(null, null) as string);
     }
 
     private bool Is64Bit()
@@ -81,7 +127,7 @@ public partial class LoaderPlugin
         // IntPtr size is 4 on x86, 8 on x64.
         return IntPtr.Size == 8;
     }
-        
+
     private bool IsIl2CppRuntime()
     {
         try
@@ -98,82 +144,177 @@ public partial class LoaderPlugin
             return false;
         }
     }
-    
-    private Dictionary<string, string> GetAllImplementationVersions()
+
+    private Dictionary<string, ImplementationInfo> GetAllImplementationVersions()
     {
-        var implementations = new Dictionary<string, string>();
+        var implementations = new Dictionary<string, ImplementationInfo>();
         var pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
         var implDir = Path.Combine(pluginDir, "implementation");
-        
+
         if (!Directory.Exists(implDir))
-        {
             throw new DirectoryNotFoundException($"Implementation directory not found: {implDir}");
-        }
 
         Logger.LogInfo($"Searching for implementations in: {implDir}");
-        var files = Directory.GetFiles(implDir, "UUVR.Implementation.*.dll");
+
+        var files = Directory.GetFiles(implDir, "UUVR.*.dll");
         foreach (var file in files)
         {
-            var fileName = Path.GetFileNameWithoutExtension(file);
-            var version = fileName.Replace("UUVR.Implementation.", "");
-            implementations[version] = file;
-            Logger.LogInfo($"Found implementation: {fileName} ({version})");
+            var fileName = Path.GetFileName(file);
+            var match = Regex.Match(fileName, @"UUVR\.([^.]+)\.(.+?)\.dll$");
+            if (!match.Success)
+                continue;
+
+            var backend = match.Groups[1].Value;
+            var version = match.Groups[2].Value;
+            
+            var newImplementationInfo = new ImplementationInfo(backend, version);
+            if (newImplementationInfo.Version.Major == 0)
+                Logger.LogWarning($"DLL {fileName} couldn't be parsed for loading.");
+            else
+                implementations.Add(file, newImplementationInfo);
+            
+            Logger.LogInfo($"Found implementation: {fileName} (Backend: {newImplementationInfo.Backend}, Version: {newImplementationInfo.Version})");
         }
-        
+
         return implementations;
     }
 
-    // FIXME - Test and improve
-    private string GetMatchingImplementation(Dictionary<string, string> allImplementations)
+    private string GetMatchingImplementation(Dictionary<string, ImplementationInfo> allImplementations)
     {
-        var pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-        var implDir = Path.Combine(Path.Combine(pluginDir, "UUVR"), "implementation");
+        var gameUnityVersion = GetUnityVersion();
 
-        if (!Directory.Exists(implDir))
+        var currentBackend = IsIl2CppRuntime() ? "IL2CPP" : "Mono";
+        Logger.LogInfo($"Looking for implementation matching: Backend={currentBackend}, UnityVersion={gameUnityVersion}");
+
+        // Filter implementations by matching backend
+        var matchingBackendDlls = allImplementations
+            .Where(kvp => string.Equals(kvp.Value.Backend, currentBackend, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+        if (!matchingBackendDlls.Any())
         {
-            throw new DirectoryNotFoundException($"Implementation directory not found. Can't load UUVR: {implDir}");
+            throw new FileNotFoundException($"No implementation found for backend: {currentBackend}");
         }
 
-        var backend = IsIl2CppRuntime() ? "Il2cpp" : "Mono";
-        var generation = IsModernUnity() ? "Modern" : "Legacy";
-        var fileName = $"UUVR.{backend}.{generation}.dll";
-        var implPath = Directory.GetFiles(implDir, fileName, SearchOption.TopDirectoryOnly).FirstOrDefault();
-            
-        if (implPath == null)
-            throw new FileNotFoundException($"UUVR implementation not found: {fileName} in {implDir}");
+        // Find best matching version
+        ImplementationInfo bestMatch = null;
+        string bestMatchPath = null;
+        int bestScore = int.MinValue;
 
-        Logger.LogInfo($"Loading implementation: {implPath}");
+        foreach (var implDll in matchingBackendDlls)
+        {
+            var score = CalculateVersionMatchScore(gameUnityVersion, implDll.Value.Version);
+            Logger.LogInfo($"Implementation {implDll.Value.Backend}.{implDll.Value.Version} score: {score}");
 
-        var asm = Assembly.LoadFile(implPath);
-        var bootstrapType = asm.GetType("Uuvr.UuvrBootstrap", throwOnError: true)!;
-        var startMethod = bootstrapType.GetMethod("Start", BindingFlags.Public | BindingFlags.Static);
+            if (score > bestScore)
+            {
+                bestScore = score;
+                bestMatchPath = implDll.Key;
+                bestMatch = implDll.Value;
+            }
+        }
 
-        return "";
+        if (bestMatch == null)
+        {
+            throw new FileNotFoundException($"No valid implementation found for {currentBackend} backend");
+        }
+
+        Logger.LogInfo($"Selected implementation: {bestMatch.Backend}.{bestMatch.Version}");
+        return bestMatchPath;
     }
-
-    private static bool IsModernUnity()
+    
+    /// <summary>
+    /// Calculates a compatibility score between the current Unity version and an implementation version.
+    /// Higher scores indicate better compatibility. Scoring system:
+    /// - Exact version match: +1,000,000
+    /// - Different major version (current > impl): -100,000 - (difference * 10,000)
+    /// - Different major version (impl > current): -500,000 - (difference * 10,000)
+    /// - Same major version base score: +100,000
+    /// - Same minor version bonus: +10,000
+    /// - Different minor version (impl < current): -(difference * 100)
+    /// - Different minor version (impl > current): -(difference * 500)
+    /// - Different patch version (impl < current): -10
+    /// - Different patch version (impl > current): -50
+    /// </summary>
+    private int CalculateVersionMatchScore(ImplementationInfo.UnityVersion current, ImplementationInfo.UnityVersion impl)
     {
-        // Read UnityEngine.Application.unityVersion via reflection to avoid compile-time UnityEngine ref
+        // Exact match gets highest score
+        if (current.Major == impl.Major && current.Minor == impl.Minor && current.Patch == impl.Patch)
+        {
+            return int.MaxValue;
+        }
+
+        // Different major version - heavily penalize, but prefer lower
+        if (current.Major != impl.Major)
+        {
+            if (impl.Major < current.Major)
+            {
+                // Lower major version - prefer closer ones
+                var majorDiff = current.Major - impl.Major;
+                return -100000 - (majorDiff * 10000);
+            }
+            else
+            {
+                // Higher major version - last resort, heavily penalized
+                var majorDiff = impl.Major - current.Major;
+                return -500000 - (majorDiff * 10000);
+            }
+        }
+
+        // Same major version
+        int score = 100000;
+
+        // Different minor version
+        if (current.Minor != impl.Minor)
+        {
+            var minorDiff = Math.Abs(current.Minor - impl.Minor);
+            if (impl.Minor < current.Minor)
+            {
+                // Lower minor - preferred, small penalty
+                score -= minorDiff * 100;
+            }
+            else
+            {
+                // Higher minor - less preferred, larger penalty
+                score -= minorDiff * 500;
+            }
+        }
+        else
+        {
+            // Same minor version - bonus
+            score += 10000;
+        }
+
+        // Different patch version
+        if (current.Patch != impl.Patch)
+        {
+            // When patch versions differ, prefer lower patch versions with small penalty
+            if (string.Compare(impl.Patch, current.Patch, StringComparison.OrdinalIgnoreCase) < 0)
+            {
+                // Lower patch - preferred, minimal penalty
+                score -= 10;
+            }
+            else
+            {
+                // Higher patch - slightly less preferred
+                score -= 50;
+            }
+        }
+
+        return score;
+    }
+    
+    private void LoadImplementation(string implementationName)
+    {
         try
         {
-            var appType = Type.GetType("UnityEngine.Application, UnityEngine");
-            if (appType == null) return true; // default modern if unknown
-            var prop = appType.GetProperty("unityVersion", BindingFlags.Public | BindingFlags.Static);
-            var versionStr = prop?.GetValue(null, null) as string;
-            if (string.IsNullOrEmpty(versionStr)) return true;
-
-            // Unity version format: "2020.3.47f1", "2019.4.40f1", etc.
-            var major = 0;
-            var firstDot = versionStr!.IndexOf('.');
-            if (firstDot > 0 && int.TryParse(versionStr.Substring(0, firstDot), out major))
-            {
-                return major >= 2020;
-            }
-            return true;
+            Logger.LogWarning(implementationName);
+            Assembly.LoadFrom(implementationName);
         }
-        catch
+        catch (Exception e)
         {
-            return true;
+            Logger.LogError($"Failed to load implementation {implementationName}: {e}");
+            throw;
         }
     }
 }
