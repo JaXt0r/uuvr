@@ -16,6 +16,13 @@ namespace Uuvr.Loader;
 [BepInPlugin("raicuparta.uuvr.loader-mono", "UUVR.Loader.Mono", "0.4.0")]
 public partial class LoaderPlugin : BaseUnityPlugin
 {
+    private const string _implDir = "implementations";
+    private const string _toolsDir = "tools";
+    private const string _gamePluginsDir = "game-plugins";
+    
+    private const string _steamVRUnity5FileName = "SteamVR.2.6.1.dll";
+    private const string _steamVRUnity2018FileName = "UUVR.SteamVR.2.8.0.dll";
+    
     private void Awake()
     {
         Bootstrap();
@@ -61,7 +68,7 @@ public partial class LoaderPlugin
                 {
                     Major = 0;
                     Minor = 0;
-                    Patch = "23";
+                    Patch = "";
                     return;
                 }
 
@@ -82,6 +89,18 @@ public partial class LoaderPlugin
             Version = new UnityVersion(versionString);
         }
     }
+    
+    private class ImplementationMatch
+    {
+        public string Path { get; }
+        public ImplementationInfo Info { get; }
+
+        public ImplementationMatch(string path, ImplementationInfo info)
+        {
+            Path = path;
+            Info = info;
+        }
+    }
 
     private void Bootstrap()
     {
@@ -93,16 +112,19 @@ public partial class LoaderPlugin
             Logger.LogInfo("===Load implementations.===");
             var allImplementations = GetAllImplementationVersions();
             Logger.LogInfo("===Calculate best fitting implementation.===");
-            var implementationName = GetMatchingImplementation(allImplementations);
-            Logger.LogInfo("===Last log from Loader. Loading implementation/UUVR dll now. See you in Unity Logs. ^_^===");
-            LoadImplementation(implementationName);
+            var implementationDLL = GetMatchingImplementation(allImplementations);
+            Logger.LogInfo("===Loading implementation/UUVR dll now.===");
+            LoadImplementation(implementationDLL.Path);
+            
+            Logger.LogInfo("===Load additional tool dependencies.===");
+            LoadToolDependencies();
         }
         catch (Exception e)
         {
             Logger.LogError($"Failed to bootstrap UUVR: {e}");
         }
     }
-
+    
     private void LogInitialInformation()
     {
         Logger.LogInfo("===Log initial environment information. Useful for troubleshooting.===");
@@ -149,7 +171,7 @@ public partial class LoaderPlugin
     {
         var implementations = new Dictionary<string, ImplementationInfo>();
         var pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-        var implDir = Path.Combine(pluginDir, "implementation");
+        var implDir = Path.Combine(pluginDir, _implDir);
 
         if (!Directory.Exists(implDir))
             throw new DirectoryNotFoundException($"Implementation directory not found: {implDir}");
@@ -179,7 +201,7 @@ public partial class LoaderPlugin
         return implementations;
     }
 
-    private string GetMatchingImplementation(Dictionary<string, ImplementationInfo> allImplementations)
+    private ImplementationMatch GetMatchingImplementation(Dictionary<string, ImplementationInfo> allImplementations)
     {
         var gameUnityVersion = GetUnityVersion();
 
@@ -197,8 +219,7 @@ public partial class LoaderPlugin
         }
 
         // Find best matching version
-        ImplementationInfo bestMatch = null;
-        string bestMatchPath = null;
+        ImplementationMatch bestMatch = null;
         int bestScore = int.MinValue;
 
         foreach (var implDll in matchingBackendDlls)
@@ -209,8 +230,8 @@ public partial class LoaderPlugin
             if (score > bestScore)
             {
                 bestScore = score;
-                bestMatchPath = implDll.Key;
-                bestMatch = implDll.Value;
+                
+                bestMatch = new ImplementationMatch(implDll.Key, implDll.Value);
             }
         }
 
@@ -219,8 +240,8 @@ public partial class LoaderPlugin
             throw new FileNotFoundException($"No valid implementation found for {currentBackend} backend");
         }
 
-        Logger.LogInfo($"Selected implementation: {bestMatch.Backend}.{bestMatch.Version}");
-        return bestMatchPath;
+        Logger.LogInfo($"Selected implementation: {bestMatch.Info.Backend}.{bestMatch.Info.Version}");
+        return bestMatch;
     }
     
     /// <summary>
@@ -309,7 +330,7 @@ public partial class LoaderPlugin
         try
         {
             var asm = Assembly.LoadFrom(implementationName);
-            var bootstrapType = asm.GetType("Uuvr.UUVRPlugin", throwOnError: true)!;
+            var bootstrapType = asm.GetType("UUVR.UUVRPlugin", throwOnError: true)!;
             var startMethod = bootstrapType.GetMethod("Start", BindingFlags.Public | BindingFlags.Static);
             
             if (startMethod == null)
@@ -330,5 +351,32 @@ public partial class LoaderPlugin
         // Both BaseUnityPlugin and BasePlugin expose Config property
         var prop = GetType().GetProperty("Config", BindingFlags.Public | BindingFlags.Instance);
         return prop?.GetValue(this, null);
+    }
+    
+    private void LoadToolDependencies()
+    {
+        LoadSteamVR();
+    }
+
+    private void LoadSteamVR()
+    {
+        var implementations = new Dictionary<string, ImplementationInfo>();
+        var pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+        var toolDir = Path.Combine(pluginDir, _toolsDir);
+
+        if (!Directory.Exists(toolDir))
+            throw new DirectoryNotFoundException($"Tools directory not found: {toolDir}");
+
+        string steamVRDll;
+        if (GetUnityVersion().Major == 5)
+            steamVRDll = Path.Combine(toolDir, _steamVRUnity5FileName);
+        else
+            steamVRDll = Path.Combine(toolDir, _steamVRUnity2018FileName);
+
+        if (!File.Exists(steamVRDll))
+            throw new FileNotFoundException($"SteamVR DLL not found: {steamVRDll}");
+        
+        Logger.LogInfo($"Loading SteamVR: {steamVRDll}");
+        Assembly.Load(steamVRDll);
     }
 }

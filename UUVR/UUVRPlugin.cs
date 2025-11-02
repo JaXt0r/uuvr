@@ -1,13 +1,8 @@
 ﻿using System.IO;
 using System.Reflection;
-using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
 using UnityEngine;
-using Uuvr.VrCamera;
-using Uuvr.VrUi;
-using Uuvr.VrUi.PatchModes;
-
 #if CPP
 using Il2CppInterop.Runtime.Injection;
 #endif
@@ -21,7 +16,7 @@ public static class UUVRPlugin
 
     public static void Start(ConfigFile config)
     {
-        ModFolderPath = Path.GetDirectoryName(Assembly.GetAssembly(typeof(UUVRBootstrap)).Location);
+        ModFolderPath = Path.GetDirectoryName(Assembly.GetAssembly(typeof(UUVRPlugin)).Location);
         
         new ModConfiguration(config);
         

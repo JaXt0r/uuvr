@@ -11,7 +11,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
     <DebugType>none</DebugType>
-    <OutputPath>$(BepInExDir)\plugins\UUVR\implementation</OutputPath>
+    <OutputPath>$(BepInExDir)\plugins\UUVR\implementations</OutputPath>
     <RootNamespace>UUVR</RootNamespace>
     <AssemblyName>UUVR.$(UnityBackend).$(UnityVersion)</AssemblyName>
   </PropertyGroup>

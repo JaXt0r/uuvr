@@ -18,7 +18,7 @@ public class VrUiCursor: UuvrBehaviour
 
     private void Start()
     {        
-        var bytes = File.ReadAllBytes(Path.Combine(UUVRBootstrap.ModFolderPath, @"Assets\cursor.bmp"));
+        var bytes = File.ReadAllBytes(Path.Combine(UUVRPlugin.ModFolderPath, @"Assets\cursor.bmp"));
         
         // Read dimensions from BMP header
         var width = bytes[18] + (bytes[19] << 8);

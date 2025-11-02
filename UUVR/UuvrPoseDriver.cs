@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using UnityEngine;
-using Uuvr.UnityTypesHelper;
+using UUVR.UnityTypesHelper;
 
 namespace UUVR;
 

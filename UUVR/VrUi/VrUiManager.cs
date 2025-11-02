@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using BepInEx;
+﻿using BepInEx;
 using UnityEngine;
-using UnityEngine.UI;
-using Uuvr.VrUi.PatchModes;
+using UUVR.VrUi.PatchModes;
 
 namespace UUVR.VrUi;
 
