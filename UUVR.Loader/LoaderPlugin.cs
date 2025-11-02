@@ -377,6 +377,6 @@ public partial class LoaderPlugin
             throw new FileNotFoundException($"SteamVR DLL not found: {steamVRDll}");
         
         Logger.LogInfo($"Loading SteamVR: {steamVRDll}");
-        Assembly.Load(steamVRDll);
+        Assembly.LoadFile(steamVRDll);
     }
 }
