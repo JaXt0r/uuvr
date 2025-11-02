@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+      <Configurations>Mono-5;skip</Configurations>
+      <TargetFrameworks>net35;netstandard2.0;netstandard2.1</TargetFrameworks> <!-- Required for NuGet.Restore -->
       <Nullable>enable</Nullable>
-      <Configurations>Mono-5</Configurations>
       <Platforms>AnyCPU</Platforms>
       <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
       <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
@@ -10,11 +11,10 @@
       <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
       <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
       <DebugType>none</DebugType>
-      <OutputPath>$(BepInExDir)\plugins\Uuvr\implementation</OutputPath>
-      <AssemblyName>UUVR.$(UnityBackend).$(UnityGeneration)</AssemblyName>
+      <OutputPath>$(BepInExDir)\plugins\UUVR\implementation</OutputPath>
       <RootNamespace>UUVR</RootNamespace>
   </PropertyGroup>
-
+  
   <ItemGroup>
     <Reference Include="..\lib\$(UnityBackend)\$(UnityGeneration)\*.dll">
       <Private>False</Private>
@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <!--  Mono  -->
-  <ItemGroup Condition=" '$(UnityBackend)' == 'mono' ">
+  <ItemGroup Condition=" '$(UnityBackend)' == 'Mono' ">
     <PackageReference Include="BepInEx.Core" Version="5.4.16" />
   </ItemGroup>
 

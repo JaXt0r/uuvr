@@ -11,7 +11,13 @@
         <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
         <DebugType>none</DebugType>
         <OutputPath>$(BepInExDir)\mods\$(UnityBackendFolderName)\uuvr-$(UnityBackend)-$(UnityGeneration)\patchers</OutputPath>
-        <RootNamespace>UuvrPatcher</RootNamespace>
+        <RootNamespace>UUVRPatcher</RootNamespace>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Loader-Mono-543p3' ">
+      <UnityBackend>Mono</UnityBackend>
+      <UnityGeneration>500</UnityGeneration>
+      <TargetFramework>net35</TargetFramework>
+      <DefineConstants>$(DefineConstants);MONO</DefineConstants>
     </PropertyGroup>
     
     <ItemGroup>

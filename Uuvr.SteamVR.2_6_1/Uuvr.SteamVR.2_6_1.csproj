@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <Configurations>il2cpp-legacy;il2cpp-modern;mono-legacy;mono-modern;Mono-5;Loader-Mono-543p3</Configurations>
+    <TargetFramework>net35</TargetFramework> <!-- Required for NuGet.Restore -->
     <Nullable>enable</Nullable>
-    <Configurations>il2cpp-legacy;il2cpp-modern;mono-legacy;mono-modern</Configurations>
     <Platforms>AnyCPU</Platforms>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
@@ -12,6 +13,12 @@
     <DebugType>none</DebugType>
 <!--    <OutputPath>$(BepInExDir)\mods\$(UnityBackendFolderName)\uuvr-$(UnityBackend)-$(UnityGeneration)\plugins</OutputPath>-->
     <RootNamespace>UUVR.SteamVR.2_6_1</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Loader-Mono-543p3' ">
+    <UnityBackend>Mono</UnityBackend>
+    <UnityGeneration>500</UnityGeneration>
+    <TargetFramework>net35</TargetFramework>
+    <DefineConstants>$(DefineConstants);MONO</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

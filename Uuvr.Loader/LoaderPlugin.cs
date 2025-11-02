@@ -10,7 +10,16 @@ using BepInEx.Unity.IL2CPP;
 
 namespace Uuvr.Loader;
 
-#if CPP
+#if MONO
+[BepInPlugin("raicuparta.uuvr.loader-mono", "UUVR.Loader.Mono", "0.4.0")]
+public partial class LoaderPlugin : BaseUnityPlugin
+{
+    private void Awake()
+    {
+        Bootstrap();
+    }
+}
+#else
 [BepInPlugin(
 #if LEGACY
     "raicuparta.uuvr.loader-il2cpp-legacy", "UUVR.Loader.I.L",
@@ -23,21 +32,6 @@ public partial class LoaderPlugin : BasePlugin
     private ManualLogSource Logger => Log;
     
     public override void Load()
-    {
-        Bootstrap();
-    }
-}
-#elif MONO
-[BepInPlugin(
-#if LEGACY
-    "raicuparta.uuvr.loader-mono-legacy", "UUVR.Loader.M.L",
-#else
-    "raicuparta.uuvr.loader-mono-modern", "UUVR.Loader.M.M",
-#endif
-    "0.4.0")]
-public partial class LoaderPlugin : BaseUnityPlugin
-{
-    private void Awake()
     {
         Bootstrap();
     }
