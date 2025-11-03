@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configurations>Loader-Mono-543p3;SteamVR-2.6.1</Configurations>
-    <TargetFrameworks>net35;netstandard2.0;netstandard2.1</TargetFrameworks> <!-- Required for NuGet.Restore -->
+    <Configurations>Loader-IL2CPP-NET60;Loader-Mono-NET48;Loader-Mono-NET35</Configurations>
+    <TargetFrameworks>net35;net48;net60</TargetFrameworks> <!-- Required for NuGet.Restore -->
     <Nullable>disable</Nullable>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <LangVersion>10</LangVersion>
@@ -12,10 +12,10 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <DebugType>none</DebugType>
     <OutputPath>$(BepInExDir)\plugins\UUVR\</OutputPath>
-    <AssemblyName>UUVR.Loader.$(UnityBackend).$(UnityVersion)</AssemblyName>
+    <AssemblyName>UUVR.Loader.$(UnityBackend).$(LoaderNetVersionName)</AssemblyName>
     <RootNamespace>UUVR.Loader</RootNamespace>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <Reference Include="..\lib\$(UnityBackend)\$(UnityVersion)\*.dll">
       <Private>False</Private>
@@ -38,12 +38,13 @@
     </Content>
   </ItemGroup>
 
+  <!-- Create plugin version used from command line, if provided. -->
   <Target Name="AddGeneratedFile" BeforeTargets="BeforeCompile;CoreCompile">
     <PropertyGroup>
       <BepInExPluginGuid Condition="'$(BepInExPluginGuid)' == ''">$(AssemblyName)</BepInExPluginGuid>
       <BepInExPluginName Condition="'$(BepInExPluginName)' == ''">$(Product)</BepInExPluginName>
       <BepInExPluginVersion Condition="'$(BepInExPluginVersion)' == ''">$(Version)</BepInExPluginVersion>
-      <GeneratedText><![CDATA[
+      <GeneratedPluginVersion><![CDATA[
 namespace $(RootNamespace)
 {
     internal static class GeneratedPluginInfo
@@ -53,15 +54,14 @@ namespace $(RootNamespace)
         public const string PLUGIN_VERSION = "$(BepInExPluginVersion)"%3B
     }
 }
-      ]]></GeneratedText>
-      <GeneratedFilePath>$(IntermediateOutputPath)GeneratedPluginInfo.cs</GeneratedFilePath>
+      ]]></GeneratedPluginVersion>
+      <GeneratedPluginInfoFilePath>$(IntermediateOutputPath)GeneratedPluginInfo.cs</GeneratedPluginInfoFilePath>
     </PropertyGroup>
-
-    <WriteLinesToFile Lines="$(GeneratedText)" File="$(GeneratedFilePath)" WriteOnlyWhenDifferent="true" Overwrite="true" />
+    <WriteLinesToFile Lines="$(GeneratedPluginVersion)" File="$(GeneratedPluginInfoFilePath)" WriteOnlyWhenDifferent="true" Overwrite="true" />
 
     <ItemGroup>
-      <Compile Include="$(GeneratedFilePath)" />
-      <FileWrites Include="$(GeneratedFilePath)" />
+      <Compile Include="$(GeneratedPluginInfoFilePath)" />
+      <FileWrites Include="$(GeneratedPluginInfoFilePath)" />
     </ItemGroup>
   </Target>
   

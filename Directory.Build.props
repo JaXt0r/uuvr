@@ -18,30 +18,35 @@
     <BepInExPluginVersion Condition="'$(UUVRReleaseVersion)' == ''">0.0.0</BepInExPluginVersion>
   </PropertyGroup>
 
+  
   <!-- Loader -->
-  <PropertyGroup Condition=" '$(Configuration)' == 'Loader-Mono-543p3' ">
+  <PropertyGroup Condition=" $(Configuration) == 'Loader-Mono-NET35' ">
     <UnityBackend>Mono</UnityBackend>
-    <UnityVersion>5.4.3p3</UnityVersion>
     <TargetFramework>net35</TargetFramework>
     <DefineConstants>$(DefineConstants);MONO</DefineConstants>
+    <!-- We can basically use whatever folder with Mono DLLs we have. As our loader only uses a very limited amount of Unity APIs. -->
+    <UnityVersion>5.4.3p3</UnityVersion>
+    <LoaderNetVersionName>NET35</LoaderNetVersionName>
   </PropertyGroup>
-<!--  <PropertyGroup Condition=" '$(Configuration)' == 'Loader-Mono-2018' ">-->
-<!--    <UnityBackend>Mono</UnityBackend>-->
-<!--    <UnityGeneration>500</UnityGeneration>-->
-<!--    <TargetFramework>netstandard2.0</TargetFramework>-->
-<!--  </PropertyGroup>-->
-<!--  <PropertyGroup Condition=" '$(Configuration)' == 'Loader-Mono-2021' ">-->
-<!--    <UnityBackend>Mono</UnityBackend>-->
-<!--    <UnityGeneration>500</UnityGeneration>-->
-<!--    <TargetFramework>netstandard2.1</TargetFramework>-->
-<!--  </PropertyGroup>-->
-<!--  <PropertyGroup Condition=" '$(Configuration)' == 'Loader-IL2CPP-2021' ">-->
-<!--    <UnityBackend>IL2CPP</UnityBackend>-->
-<!--    <UnityGeneration>2021</UnityGeneration>-->
-<!--    <TargetFramework>netstandard2.1</TargetFramework>-->
-<!--  </PropertyGroup>-->
+  <PropertyGroup Condition=" $(Configuration) == 'Loader-Mono-NET48' ">
+    <UnityBackend>Mono</UnityBackend>
+    <TargetFramework>net48</TargetFramework>
+    <DefineConstants>$(DefineConstants);MONO</DefineConstants>
+    <!-- We can basically use whatever folder with Mono DLLs we have. As our loader only uses a very limited amount of Unity APIs. -->
+    <UnityVersion>5.4.3p3</UnityVersion>
+    <LoaderNetVersionName>NET48</LoaderNetVersionName>
+  </PropertyGroup>
 
-
+  <PropertyGroup Condition="$(Configuration.StartsWith('Loader-IL2CPP-NET60'))">
+    <UnityBackend>IL2CPP</UnityBackend>
+    <TargetFramework>net6.0</TargetFramework>
+    <DefineConstants>$(DefineConstants);IL2CPP</DefineConstants>
+    <!-- We can basically use whatever folder with IL2CPP DLLs we have. As our loader only uses a very limited amount of Unity APIs. -->
+    <UnityVersion>5.4.3p3</UnityVersion>
+    <LoaderNetVersionName>NET60</LoaderNetVersionName>
+  </PropertyGroup>
+  
+  
   <!-- Plugins -->
   <PropertyGroup Condition=" '$(Configuration)' == 'SteamVR-2.6.1' ">
     <UnityBackend>Mono</UnityBackend>
@@ -49,7 +54,6 @@
     <TargetFramework>net35</TargetFramework>
     <DefineConstants>$(DefineConstants);MONO;UNITY_5_4</DefineConstants>
   </PropertyGroup>
-  
   
   <!-- Unity 5 -->
   <PropertyGroup Condition=" '$(Configuration)' == 'Mono-543p3' ">

@@ -10,6 +10,9 @@ if (-not $MSBuildToolsPath) {
     exit 1
 }
 
+# FIXME - Add UUVRReleaseVersion as parameter from Build pipeline to set version of UUVR dynamically during release.
+# FIXME - Configurations changed significantly. Update them.
+
 # Build configurations
 $configurations = @(
     "mono-legacy",
