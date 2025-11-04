@@ -11,7 +11,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
     <DebugType>none</DebugType>
-    <RootNamespace>UUVR.SteamVR._2_6_1</RootNamespace>
+    <RootNamespace>UUVR.SteamVR</RootNamespace>
     <OutputPath>$(BepInExDir)\plugins\UUVR\tools</OutputPath>
     <AssemblyName>UUVR.SteamVR.2.6.1</AssemblyName>
   </PropertyGroup>

@@ -49,8 +49,8 @@ namespace $(RootNamespace)
 {
     internal static class GeneratedPluginInfo
     {
-        public const string PLUGIN_GUID = "$(BepInExPluginGuid)"%3B
-        public const string PLUGIN_NAME = "$(BepInExPluginName)"%3B 
+        public const string PLUGIN_GUID = "$(BepInExPluginGuid).loader"%3B
+        public const string PLUGIN_NAME = "$(BepInExPluginName).Loader"%3B 
         public const string PLUGIN_VERSION = "$(BepInExPluginVersion)"%3B
     }
 }

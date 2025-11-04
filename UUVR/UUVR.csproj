@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configurations>skip;Mono-543p3;SteamVR-2.6.1</Configurations>
-    <TargetFrameworks>net35;netstandard2.0;netstandard2.1</TargetFrameworks> <!-- Required for NuGet.Restore -->
+    <Configurations>skip;Mono-543p3;SteamVR-2.6.1;SteamVR-2.8.0;Mono-2018.4.9p1</Configurations>
+    <TargetFrameworks>net35;net48;net60</TargetFrameworks> <!-- Required for NuGet.Restore -->
     <Nullable>enable</Nullable>
     <Platforms>AnyCPU</Platforms>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -40,4 +40,31 @@
 <!--    <ProjectReference Include="..\Uuvr.XR.OpenVR\Uuvr.XR.OpenVR.csproj" />-->
 <!--    <ProjectReference Include="..\Uuvr.XR.OpenXR\Uuvr.XR.OpenXR.csproj" />-->
 <!--  </ItemGroup>-->
+
+  <!-- Create plugin version used from command line, if provided. -->
+  <Target Name="AddGeneratedFile" BeforeTargets="BeforeCompile;CoreCompile">
+    <PropertyGroup>
+      <BepInExPluginGuid Condition="'$(BepInExPluginGuid)' == ''">$(AssemblyName)</BepInExPluginGuid>
+      <BepInExPluginName Condition="'$(BepInExPluginName)' == ''">$(Product)</BepInExPluginName>
+      <BepInExPluginVersion Condition="'$(BepInExPluginVersion)' == ''">$(Version)</BepInExPluginVersion>
+      <GeneratedPluginVersion><![CDATA[
+namespace $(RootNamespace)
+{
+    internal static class GeneratedPluginInfo
+    {
+        public const string PLUGIN_GUID = "$(BepInExPluginGuid)"%3B
+        public const string PLUGIN_NAME = "$(BepInExPluginName)"%3B 
+        public const string PLUGIN_VERSION = "$(BepInExPluginVersion)"%3B
+    }
+}
+      ]]></GeneratedPluginVersion>
+      <GeneratedPluginInfoFilePath>$(IntermediateOutputPath)GeneratedPluginInfo.cs</GeneratedPluginInfoFilePath>
+    </PropertyGroup>
+    <WriteLinesToFile Lines="$(GeneratedPluginVersion)" File="$(GeneratedPluginInfoFilePath)" WriteOnlyWhenDifferent="true" Overwrite="true" />
+
+    <ItemGroup>
+      <Compile Include="$(GeneratedPluginInfoFilePath)" />
+      <FileWrites Include="$(GeneratedPluginInfoFilePath)" />
+    </ItemGroup>
+  </Target>
 </Project>

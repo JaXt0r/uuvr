@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace UUVR.VrUi.PatchModes;
 
@@ -71,12 +70,12 @@ public class CanvasRedirectPatchMode : UuvrBehaviour, VrUiPatchMode
         var keys =
 #if CPP
             GraphicRegistry.instance.m_Graphics.keys;
-#elif UNITY_2017_AND_NEWER
+#elif UNITY_2019_AND_NEWER // Don't know if I can use or need it at any time...
             GraphicRegistry.instance.m_Graphics.Keys;
 #endif
 
 // Unity 5 has hidden key values. Ignoring.
-#if UNITY_2017_AND_NEWER
+#if UNITY_2019_AND_NEWER
         foreach (var canvas in keys)
         {
             PatchCanvas(canvas);

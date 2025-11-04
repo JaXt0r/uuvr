@@ -62,12 +62,16 @@
     <TargetFramework>net35</TargetFramework>
     <DefineConstants>$(DefineConstants);UNITY_500_AND_NEWER</DefineConstants>
   </PropertyGroup>
-  
+
   <!-- Unity 2017 -->
-  <PropertyGroup Condition=" '$(Configuration)' == 'mono-2017' ">
+  <!-- ... -->
+
+  <!-- Unity 2018 -->
+  <PropertyGroup Condition=" '$(Configuration)' == 'Mono-2018.4.9p1' ">
     <UnityBackend>Mono</UnityBackend>
-    <TargetFramework>net35</TargetFramework>
-    <DefineConstants>$(DefineConstants);UNITY_500_AND_NEWER;UNITY_2017_AND_NEWER</DefineConstants>
+    <UnityVersion>2018.4.9p1</UnityVersion>
+    <TargetFramework>net35</TargetFramework> <!-- Be careful, there will be also net48 games... -->
+    <DefineConstants>$(DefineConstants);UNITY_500_AND_NEWER;UNITY_2017_AND_NEWER;UNITY_2018_AND_NEWER</DefineConstants>
   </PropertyGroup>
 
 <!--  &lt;!&ndash; Unity 2018 &ndash;&gt;-->

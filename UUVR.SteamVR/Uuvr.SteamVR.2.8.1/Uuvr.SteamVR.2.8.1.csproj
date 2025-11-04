@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configurations>il2cpp-legacy;il2cpp-modern;mono-legacy;mono-modern;Mono-5;Loader-Mono-543p3;SteamVR-2.6.1</Configurations>
+    <Configurations>SteamVR-2.8.0;Mono-2018.4.9p1</Configurations>
     <TargetFrameworks>net35;netstandard2.0;netstandard2.1</TargetFrameworks> <!-- Required for NuGet.Restore -->
     <Nullable>enable</Nullable>
     <Platforms>AnyCPU</Platforms>
@@ -12,7 +12,9 @@
     <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
     <DebugType>none</DebugType>
 <!--    <OutputPath>$(BepInExDir)\mods\$(UnityBackendFolderName)\uuvr-$(UnityBackend)-$(UnityGeneration)\plugins</OutputPath>-->
-    <RootNamespace>UUVR.SteamVR.LATEST</RootNamespace>
+    <RootNamespace>UUVR.SteamVR</RootNamespace>
+    <OutputPath>$(BepInExDir)\plugins\UUVR\tools</OutputPath>
+    <AssemblyName>UUVR.SteamVR.2.8.0</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,15 +28,9 @@
 
 
   <!--  Mono  -->
-  <PropertyGroup Condition=" '$(Configuration)' == 'mono-legacy' ">
-    <TargetFramework>net35</TargetFramework>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'mono-modern' ">
-    <TargetFramework>net48</TargetFramework>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Loader-Mono-543p3' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'SteamVR-280' ">
     <UnityBackend>Mono</UnityBackend>
-    <UnityGeneration>500</UnityGeneration>
+    <UnityVersion>500</UnityVersion>
     <TargetFramework>net35</TargetFramework>
     <DefineConstants>$(DefineConstants);MONO</DefineConstants>
   </PropertyGroup>

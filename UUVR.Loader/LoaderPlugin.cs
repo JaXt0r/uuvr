@@ -133,13 +133,15 @@ public partial class LoaderPlugin
     private void LogInitialInformation()
     {
         Logger.LogInfo("===Log initial environment information. Useful for troubleshooting.===");
+        Logger.LogInfo($"UUVR Loader Plugin Information: {Info.Metadata.Name} {Info.Metadata.Version}");
+        Logger.LogInfo($"UUVR Loader .dll path: {Assembly.GetExecutingAssembly().Location}");
+
+        // CLR 3.x (Unity 5) and CLR 2.x (Unity 2017+; yes, it's a lower number as it seems older versions were more creative in what they report)
         Logger.LogInfo(".NET Environment Version:" + Environment.Version);
         Logger.LogInfo($"Unity Version: {GetUnityVersion()}");
         Logger.LogInfo($"Game is IL2CPP: {IsIl2CppRuntime()}");
         Logger.LogInfo($"Game is x64: {Is64Bit()}");
         Logger.LogInfo($"Game Exe directory: {Directory.GetCurrentDirectory()}");
-        Logger.LogInfo($"This Loader .dll path: {Assembly.GetExecutingAssembly().Location}");
-        Logger.LogInfo($"This Loader Plugin Information: {Info.Metadata.Name} {Info.Metadata.Version}");
     }
 
     private ImplementationInfo.UnityVersion GetUnityVersion()
@@ -370,7 +372,10 @@ public partial class LoaderPlugin
         var toolDir = Path.Combine(pluginDir, _toolsDir);
 
         if (!Directory.Exists(toolDir))
-            throw new DirectoryNotFoundException($"Tools directory not found: {toolDir}");
+        {
+            Logger.LogError($"Tools directory not found: {toolDir}");
+            return;
+        }
 
         string steamVRDll;
         if (GetUnityVersion().Major == 5)
@@ -379,7 +384,10 @@ public partial class LoaderPlugin
             steamVRDll = Path.Combine(toolDir, _steamVRUnity2018FileName);
 
         if (!File.Exists(steamVRDll))
-            throw new FileNotFoundException($"SteamVR DLL not found: {steamVRDll}");
+        {
+            Logger.LogError($"SteamVR DLL not found: {steamVRDll}");
+            return;
+        }
         
         Logger.LogInfo($"Loading SteamVR: {steamVRDll}");
         Assembly.LoadFile(steamVRDll);
