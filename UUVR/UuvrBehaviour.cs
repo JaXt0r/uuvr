@@ -4,6 +4,7 @@ using System;
 
 using BepInEx.Configuration;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
 
 namespace UUVR;
@@ -57,7 +58,7 @@ public class UuvrBehaviour: MonoBehaviour
         Application.onBeforeRender += OnBeforeRender;
 #endif
 
-#if MODERN
+#if UNITY_2019_AND_NEWER
         RenderPipelineManager.beginFrameRendering += OnBeginFrameRendering;
         RenderPipelineManager.endFrameRendering += OnEndFrameRendering;
 #endif
@@ -100,7 +101,7 @@ public class UuvrBehaviour: MonoBehaviour
 
     protected virtual void OnSettingChanged() {}
 
-#if MODERN
+#if UNITY_2017_AND_NEWER
     private void OnBeginFrameRendering(ScriptableRenderContext arg1, Camera[] arg2)
     {
         OnBeginFrameRendering();

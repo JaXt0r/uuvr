@@ -13,7 +13,7 @@ public class VrCamera : UuvrBehaviour
     public static readonly HashSet<Camera> IgnoredCameras = new();
     public static VrCamera? HighestDepthVrCamera { get; private set; }
 
-#if MODERN
+#if UNITY_2017_AND_NEWER
     private Quaternion _rotationBeforeRender;
 #endif
     
@@ -41,9 +41,11 @@ public class VrCamera : UuvrBehaviour
         base.Awake();
         ParentCamera = GetComponent<Camera>();
         VrCameras.Add(ParentCamera);
+
+        Debug.LogWarning("Awake VrCamera");
     }
 
-#if MODERN
+#if UNITY_2017_AND_NEWER
     protected override void OnBeginFrameRendering()
     {
         base.OnBeginFrameRendering();
@@ -82,6 +84,8 @@ public class VrCamera : UuvrBehaviour
         
         // TODO: add option for this.
         // SetUpForwardLine();
+
+        Debug.LogWarning("Start VrCamera");
     }
 
     protected override void OnBeforeRender()

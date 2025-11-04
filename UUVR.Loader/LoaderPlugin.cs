@@ -253,6 +253,7 @@ public partial class LoaderPlugin
         return implementations;
     }
 
+    // FIXME - Compile current version of .NET into this Loader and only if it matches, then load implementation. Basically Unity.NETxy --> UUVR.Loader.NETxy --> UUVR.NETxy.UNITYxy only (keep .net version among dlls)
     private ImplementationMatch GetMatchingImplementation(Dictionary<string, ImplementationInfo> allImplementations, string currentNet = "35")
     {
         var gameUnityVersion = GetUnityVersion();

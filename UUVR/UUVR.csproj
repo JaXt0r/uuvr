@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configurations>skip;Mono-543p3;SteamVR-2.6.1;SteamVR-2.8.0;Mono-2018.4.9p1</Configurations>
+    <Configurations>Mono--NET35-5.4.3p3;Mono-NET35-2018.4.9p1</Configurations>
     <TargetFrameworks>net35;net48;net60</TargetFrameworks> <!-- Required for NuGet.Restore -->
     <Nullable>enable</Nullable>
     <Platforms>AnyCPU</Platforms>
@@ -13,12 +13,13 @@
     <DebugType>none</DebugType>
     <OutputPath>$(BepInExDir)\plugins\UUVR\implementations</OutputPath>
     <RootNamespace>UUVR</RootNamespace>
-    <!-- e.g., UUVR.Mono.NET35.543p3 -->
+    <!-- e.g., UUVR-Mono-NET35-5_4_3p3 -->
     <AssemblyName>UUVR-$(UnityBackend)-$(TargetFramework.Replace(".","").ToUpper())-$(UnityVersion.Replace(".", "_"))</AssemblyName>
   </PropertyGroup>
 
+
   <ItemGroup>
-    <Reference Include="..\lib\$(UnityBackend)\$(UnityVersion)\*.dll">
+    <Reference Include="..\lib\$(UnityBackend)}\$(TargetFramework.Replace('.','').ToUpper())\$(UnityVersion.Replace('.', '_')\*.dll">
       <Private>False</Private>
     </Reference>
     <Content Include="Assets\**" >

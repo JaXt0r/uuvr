@@ -3,6 +3,6 @@
 
 Use only following DLLs:
 * UnityEngine.dll
+* UnityEngine.CoreModule.dll
 * UnityEngine.UI.dll
 * UnityEngine.UIModule.dll
-* UnityEngine.CoreModule.dll

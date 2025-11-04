@@ -13,4 +13,4 @@
 
 # Unity DLLs (used at compile time)
 # e.g., lib/mono/500
-/lib/*/*/*.dll
+/lib/*/*/*/*.dll

@@ -12,14 +12,14 @@ public class ModConfiguration
     {
         [Description("Absolute")] Absolute,
         [Description("Relative matrix")] RelativeMatrix,
-#if MODERN
+#if UNITY_2017_AND_NEWER
         // TODO: could add this for legacy too.
         [Description("Relative Transform")] RelativeTransform,
 #endif
         [Description("Child")] Child,
     }
 
-#if MODERN
+#if UNITY_2017_AND_NEWER
     public enum VrApi
     {
         [Description("OpenVR")] OpenVr,
