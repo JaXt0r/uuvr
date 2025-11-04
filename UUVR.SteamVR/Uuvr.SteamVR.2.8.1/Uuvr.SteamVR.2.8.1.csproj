@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configurations>SteamVR-2.8.0;Mono-2018.4.9p1</Configurations>
+    <Configurations>SteamVR-2.8.0</Configurations>
     <TargetFrameworks>net35;netstandard2.0;netstandard2.1</TargetFrameworks> <!-- Required for NuGet.Restore -->
     <Nullable>enable</Nullable>
     <Platforms>AnyCPU</Platforms>

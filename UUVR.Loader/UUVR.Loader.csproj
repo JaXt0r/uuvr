@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configurations>Loader-IL2CPP-NET60;Loader-Mono-NET48;Loader-Mono-NET35</Configurations>
+    <Configurations>Loader-Mono-NET35;Loader-Mono-NET48;Loader-IL2CPP-NET60</Configurations>
     <TargetFrameworks>net35;net48;net60</TargetFrameworks> <!-- Required for NuGet.Restore -->
     <Nullable>disable</Nullable>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -12,7 +12,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <DebugType>none</DebugType>
     <OutputPath>$(BepInExDir)\plugins\UUVR\</OutputPath>
-    <AssemblyName>UUVR.Loader.$(UnityBackend).$(LoaderNetVersionName)</AssemblyName>
+    <AssemblyName>UUVR-Loader-$(UnityBackend)-$(TargetFramework.Replace(".","_").ToUpper())</AssemblyName>
     <RootNamespace>UUVR.Loader</RootNamespace>
   </PropertyGroup>
 

@@ -26,7 +26,6 @@
     <DefineConstants>$(DefineConstants);MONO</DefineConstants>
     <!-- We can basically use whatever folder with Mono DLLs we have. As our loader only uses a very limited amount of Unity APIs. -->
     <UnityVersion>5.4.3p3</UnityVersion>
-    <LoaderNetVersionName>NET35</LoaderNetVersionName>
   </PropertyGroup>
   <PropertyGroup Condition=" $(Configuration) == 'Loader-Mono-NET48' ">
     <UnityBackend>Mono</UnityBackend>
@@ -34,7 +33,6 @@
     <DefineConstants>$(DefineConstants);MONO</DefineConstants>
     <!-- We can basically use whatever folder with Mono DLLs we have. As our loader only uses a very limited amount of Unity APIs. -->
     <UnityVersion>5.4.3p3</UnityVersion>
-    <LoaderNetVersionName>NET48</LoaderNetVersionName>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration.StartsWith('Loader-IL2CPP-NET60'))">
@@ -43,23 +41,22 @@
     <DefineConstants>$(DefineConstants);IL2CPP</DefineConstants>
     <!-- We can basically use whatever folder with IL2CPP DLLs we have. As our loader only uses a very limited amount of Unity APIs. -->
     <UnityVersion>5.4.3p3</UnityVersion>
-    <LoaderNetVersionName>NET60</LoaderNetVersionName>
   </PropertyGroup>
   
   
   <!-- Plugins -->
   <PropertyGroup Condition=" '$(Configuration)' == 'SteamVR-2.6.1' ">
     <UnityBackend>Mono</UnityBackend>
-    <UnityVersion>5.4.3p3</UnityVersion>
     <TargetFramework>net35</TargetFramework>
+    <UnityVersion>5.4.3p3</UnityVersion>
     <DefineConstants>$(DefineConstants);MONO;UNITY_5_4</DefineConstants>
   </PropertyGroup>
   
   <!-- Unity 5 -->
-  <PropertyGroup Condition=" '$(Configuration)' == 'Mono-543p3' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Mono-NET35-543p3' ">
     <UnityBackend>Mono</UnityBackend>
-    <UnityVersion>5.4.3p3</UnityVersion>
     <TargetFramework>net35</TargetFramework>
+    <UnityVersion>5.4.3p3</UnityVersion>
     <DefineConstants>$(DefineConstants);UNITY_500_AND_NEWER</DefineConstants>
   </PropertyGroup>
 
@@ -67,7 +64,7 @@
   <!-- ... -->
 
   <!-- Unity 2018 -->
-  <PropertyGroup Condition=" '$(Configuration)' == 'Mono-2018.4.9p1' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Mono-NET35-201849p1' ">
     <UnityBackend>Mono</UnityBackend>
     <UnityVersion>2018.4.9p1</UnityVersion>
     <TargetFramework>net35</TargetFramework> <!-- Be careful, there will be also net48 games... -->

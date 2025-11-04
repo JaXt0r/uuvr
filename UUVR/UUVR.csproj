@@ -13,7 +13,8 @@
     <DebugType>none</DebugType>
     <OutputPath>$(BepInExDir)\plugins\UUVR\implementations</OutputPath>
     <RootNamespace>UUVR</RootNamespace>
-    <AssemblyName>UUVR.$(UnityBackend).$(UnityVersion)</AssemblyName>
+    <!-- e.g., UUVR.Mono.NET35.543p3 -->
+    <AssemblyName>UUVR-$(UnityBackend)-$(TargetFramework.Replace(".","").ToUpper())-$(UnityVersion.Replace(".", "_"))</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
