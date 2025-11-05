@@ -239,7 +239,7 @@ public partial class LoaderPlugin
             var backend = match.Groups[1].Value;
             var netRaw = match.Groups[2].Value; // e.g., NET35
             var net = Regex.Replace(netRaw, @"^NET", "", RegexOptions.IgnoreCase); // e.g., 35
-            var unityRaw = match.Groups[3].Value; // e.g., 543p3 or 201849p1
+            var unityRaw = match.Groups[3].Value; // e.g., 5_4_3p3 or 2018_4_9p1
             
             var newImplementationInfo = new ImplementationInfo(backend, net, unityRaw);
             if (newImplementationInfo.UnityMajor == 0)
