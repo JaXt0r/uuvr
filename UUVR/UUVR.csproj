@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configurations>Mono--NET35-5.4.3p3;Mono-NET35-2018.4.9p1</Configurations>
+    <Configurations>Mono--NET35-5_4_3p3;Mono-NET35-2018_4_9p1</Configurations>
     <TargetFrameworks>net35;net48;net60</TargetFrameworks> <!-- Required for NuGet.Restore -->
     <Nullable>enable</Nullable>
     <Platforms>AnyCPU</Platforms>
