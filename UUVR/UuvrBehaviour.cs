@@ -4,8 +4,10 @@ using System;
 
 using BepInEx.Configuration;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
+#if UNITY_2017_AND_NEWER
+using UnityEngine.Experimental.Rendering;
+#endif
 
 namespace UUVR;
 
