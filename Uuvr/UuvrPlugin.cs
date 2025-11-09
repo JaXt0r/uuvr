@@ -41,8 +41,8 @@ public class UuvrPlugin
 
         ModFolderPath = Path.GetDirectoryName(Assembly.GetAssembly(typeof(UuvrPlugin)).Location)!;
 
-        GameEnvironment.Init(ModFolderPath);
-        GameEnvironment.LogEnvironmentInformation();
+        GameEnv.Init(ModFolderPath);
+        GameEnv.LogEnvironmentInformation();
         
         new ModConfiguration(Config);
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());

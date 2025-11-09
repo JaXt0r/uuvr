@@ -9,7 +9,7 @@ namespace Uuvr.Core
     /// captured at startup and available for reuse by other components.
     /// Complements ModConfiguration (settings) by providing environment facts.
     /// </summary>
-    public static class GameEnvironment
+    public static class GameEnv
     {
         // Classification (converted to enums)
         public enum BackendType
