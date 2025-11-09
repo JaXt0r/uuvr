@@ -2,10 +2,7 @@
 using System.Reflection;
 using BepInEx;
 using HarmonyLib;
-using Uuvr.VrCamera;
-using Uuvr.VrUi;
-using Uuvr.VrUi.PatchModes;
-
+using Uuvr.Core;
 #if CPP
 using BepInEx.Unity.IL2CPP;
 using Il2CppInterop.Runtime.Injection;
@@ -26,19 +23,26 @@ public class UuvrPlugin
 : BasePlugin
 #elif MONO
 : BaseUnityPlugin
+#else
+: BaseUnityPlugin
 #endif
 {
-    private static UuvrPlugin _instance;
     public static string ModFolderPath { get; private set; }
     
 #if CPP
     public override void Load()
+    {
+        Log.SetBepInExLog(Log);
 #elif MONO
     private void Awake()
-#endif
     {
-        _instance = this;
-        ModFolderPath = Path.GetDirectoryName(Assembly.GetAssembly(typeof(UuvrPlugin)).Location);
+        Log.SetBepInExLog(Logger);
+#endif
+
+        ModFolderPath = Path.GetDirectoryName(Assembly.GetAssembly(typeof(UuvrPlugin)).Location)!;
+
+        GameEnvironment.Init(ModFolderPath);
+        GameEnvironment.LogEnvironmentInformation();
         
         new ModConfiguration(Config);
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
