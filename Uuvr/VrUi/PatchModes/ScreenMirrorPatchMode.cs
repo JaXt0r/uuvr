@@ -14,7 +14,7 @@ using BepInEx.Unity.IL2CPP.Utils;
 
 namespace Uuvr.VrUi.PatchModes;
 
-public class ScreenMirrorPatchMode : UuvrBehaviour, VrUiPatchMode
+public class ScreenMirrorPatchMode : UuvrBehaviour, IVrUiPatchMode
 {
 #if CPP
     public ScreenMirrorPatchMode(System.IntPtr pointer) : base(pointer)

@@ -2,7 +2,7 @@
 
 namespace Uuvr.VrUi.PatchModes;
 
-public interface VrUiPatchMode
+public interface IVrUiPatchMode
 {
     public void SetUpTargetTexture(RenderTexture targetTexture);
 }

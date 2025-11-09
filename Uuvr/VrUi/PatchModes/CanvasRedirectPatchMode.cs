@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Uuvr.VrUi.PatchModes;
 
-public class CanvasRedirectPatchMode : UuvrBehaviour, VrUiPatchMode
+public class CanvasRedirectPatchMode : UuvrBehaviour, IVrUiPatchMode
 {
 #if CPP
     public CanvasRedirectPatchMode(System.IntPtr pointer) : base(pointer)
