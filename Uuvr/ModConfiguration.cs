@@ -51,7 +51,8 @@ public class ModConfiguration
 
         [Description("Mirror flat screen (game not mirrored)")]
         Mirror,
-        [Description("Patch Canvas objects")] CanvasRedirect,
+        [Description("Patch Canvas objects")]
+        CanvasRedirect,
     }
 
     public readonly ConfigFile Config;
@@ -158,7 +159,7 @@ public class ModConfiguration
             "UI",
             "UI Patch Mode",
             UiPatchMode.Mirror,
-            "Method to use for patching UI for VR.");
+            "Method to use for patching UI for VR. >Mirror< copies the CommandBuffer (not working with HDRP), >CanvasRedirect< is moving the UI from flat window to VR by setting render mode to ScreenSpaceCamera.");
 
         VrUiLayerOverride = config.Bind(
             "UI",

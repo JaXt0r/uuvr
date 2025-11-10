@@ -25,6 +25,8 @@ public class CanvasRedirectPatchMode : UuvrBehaviour, IVrUiPatchMode
 
     private readonly List<string> _ignoredRootElements = new()
     {
+        // Unity Explorer itself creates Canvas below this GameObject for each installed mod's configuration.
+        // Therefore it's best to ignore this parent one instead of naming its children inside _ignoredCanvases.
         "UniverseLibCanvas"
     };
     
@@ -92,10 +94,15 @@ public class CanvasRedirectPatchMode : UuvrBehaviour, IVrUiPatchMode
 
     private void PatchCanvas(Canvas canvas)
     {
-        if (canvas == null || _uiCaptureCamera == null) return;
+        // TODO: We should cache these lookups, so that already checked Canvas should be ignored from a list.
+        // TODO: But if a Canvas got destroyed, let's remove it from the list regularly (rand(1f,5f) on Update()?)
+        
+        if (canvas == null || _uiCaptureCamera == null)
+            return;
 
         // World space canvases probably already work as intended in VR.
-        if (canvas.renderMode == RenderMode.WorldSpace) return;
+        if (canvas.renderMode == RenderMode.WorldSpace)
+            return;
 
         // No need to look at child canvases, just change the parents.
         // Also changing some properties of children affects the parents, which makes it harder for us to know what we're doing.
@@ -114,8 +121,8 @@ public class CanvasRedirectPatchMode : UuvrBehaviour, IVrUiPatchMode
         
         // Already patched;
         // TODO: might be smart to have a more efficient way to check if it's patched.
-        if (canvas.GetComponent<CanvasRedirect>()) return;
-
+        if (canvas.GetComponent<CanvasRedirect>())
+            return;
         CanvasRedirect.Create(canvas, _uiCaptureCamera);
     }
 }
