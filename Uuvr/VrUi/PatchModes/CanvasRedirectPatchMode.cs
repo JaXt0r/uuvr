@@ -22,6 +22,11 @@ public class CanvasRedirectPatchMode : UuvrBehaviour, IVrUiPatchMode
         // but really just Unity Explorer.
         "universelib",
     };
+
+    private readonly List<string> _ignoredRootElements = new()
+    {
+        "UniverseLibCanvas"
+    };
     
     private Camera? _uiCaptureCamera;
 
@@ -102,10 +107,11 @@ public class CanvasRedirectPatchMode : UuvrBehaviour, IVrUiPatchMode
         }
 
         if (_ignoredCanvases.Any(ignoredCanvas => canvas.name.ToLower().Contains(ignoredCanvas.ToLower())))
-        {
             return;
-        }
 
+        if (_ignoredRootElements.Contains(canvas.transform.root.gameObject.name))
+            return;
+        
         // Already patched;
         // TODO: might be smart to have a more efficient way to check if it's patched.
         if (canvas.GetComponent<CanvasRedirect>()) return;
