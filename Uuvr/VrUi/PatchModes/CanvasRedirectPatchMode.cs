@@ -22,6 +22,12 @@ public class CanvasRedirectPatchMode : UuvrBehaviour, VrUiPatchMode
         // but really just Unity Explorer.
         "universelib",
     };
+
+    private readonly List<string> _ignoredRootElements = new()
+    {
+        // This mod has only a well-named root element. Check it when patching Canvas.
+        "UniverseLibCanvas"
+    };
     
     private Camera? _uiCaptureCamera;
 
@@ -106,6 +112,11 @@ public class CanvasRedirectPatchMode : UuvrBehaviour, VrUiPatchMode
             return;
         }
 
+        if (_ignoredRootElements.Contains(canvas.transform.root.gameObject.name))
+        {
+            return;
+        }
+        
         // Already patched;
         // TODO: might be smart to have a more efficient way to check if it's patched.
         if (canvas.GetComponent<CanvasRedirect>()) return;
